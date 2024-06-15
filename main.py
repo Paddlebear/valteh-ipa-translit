@@ -4,9 +4,7 @@ import requests
 import re
 from bs4 import BeautifulSoup
 
-
-
-ACCEPTED_LANGUAGES = ["French", "Standard German", "Ukrainian", "Japanese",  "English"] # The order is deliberate. #TODO Add Lithuanian, Korean.
+ACCEPTED_LANGUAGES = ["Mandarin", "Lithuanian", "French", "Standard German", "Ukrainian", "Japanese", "English"] # The order is deliberate.
 PI = "pi" # city proper noun.
 PV = "pv" # person proper noun.
 MALE = "v" # male gender.
@@ -14,13 +12,14 @@ FEMALE = "s" # female gender.
 
 WIKIPEDIA_URL_EN = "https://en.wikipedia.org/wiki/"
 HTML_PARSER = "html.parser"
-DELIMITERS = ["[", "]", "/"]
 
 def main():
     """
     Main function.
     """
-    while True:
+    
+    exit_condition = True
+    while exit_condition == True:
         user_input = get_proper_noun()
         noun_class = get_noun_class()
         
@@ -35,8 +34,23 @@ def main():
         
         if raw_ipa_obj != 0:
             processed_ipa_obj = process_ipa_obj(noun_class, gender, raw_ipa_obj)
-    
+
+        # print(processed_ipa_obj["language"])    
+        # print(processed_ipa_obj["raw_ipa_string"])
         print(processed_ipa_obj["ipa_string"])
+        
+        raw_exit_condition = None
+        while raw_exit_condition not in ["y", "n"]:
+            raw_exit_condition = input("Izvēlēties jaunu īpašvārdu? (y/n): ").strip().lower()
+
+            if raw_exit_condition == "y":
+                exit_condition = True
+            elif raw_exit_condition == "n":
+                exit_condition = False
+            else:
+                print("Nederīga ievade! Lūdzu, ievadiet 'y' vai 'n'.")
+
+    print("Programma beidzās.")
     
 def get_proper_noun():
     """_summary_
@@ -116,7 +130,8 @@ def get_article_ipa_object(url):
     # TODO if city and no IPA is found, attempt to modify the url to end with <city_name>_(city) OR <city_name>_City.
     for i in ACCEPTED_LANGUAGES:
         # TODO consider looking for both title and href.
-        result = soup.find(title=f"Help:IPA/{i}")
+        result = soup.find(title=f"Help:IPA/{i}") # TODO loop for 1 language multiple time until you find something that 
+                                                  # TODO resembles ipa and not "IPA", and starts with "[" and ends with "]" or ""/
         if result != None:
             language = i
             break
@@ -130,7 +145,7 @@ def get_article_ipa_object(url):
             "noun_class": "",
             "language": language,
             "gender": "",
-            "raw_ipa_string": str(result),
+            "raw_ipa_string": str(result), # Vrbt nevajag to str šeit.
             "ipa_string": ""   
         }
         
@@ -140,38 +155,55 @@ def process_ipa_obj(noun_class, gender, raw_ipa_obj):
     """
     Returns a processed ipa_obj.
     """   
-    # TODO find the ipa char list, and update the function so that it returns that list. @Paddlebear :333 
-    
     raw_ipa_obj["noun_class"] = noun_class
     raw_ipa_obj["gender"] = gender
     
-    # TODO process the .ipa_string to the raw characters?
-    # print(raw_ipa_obj["raw_ipa_string"])
+    print(raw_ipa_obj["raw_ipa_string"])
     
-    pattern_brackets = re.compile(r'\[(.*?)\]')
-    match = pattern_brackets.search(raw_ipa_obj["raw_ipa_string"])
+    if raw_ipa_obj["language"] != "English":
+        pattern_brackets = re.compile(r'\[(.*?)\]')
+        match = pattern_brackets.search(raw_ipa_obj["raw_ipa_string"])
 
-    if match:
-        extracted_text = match.group(1)
-        cleaned_text = extracted_text.replace('<span class="wrap"> </span>', ' ')
-        raw_ipa_obj["ipa_string"] = cleaned_text
-        # print(cleaned_text)
-    else:
-        # Extract text within nested span tags
-        pattern_span = re.compile(r'<span[^>]*>(.*?)</span>')
-        matches = pattern_span.findall(raw_ipa_obj["raw_ipa_string"])
-
-        # Filter out only the contents of the inner spans
-        span_texts = [match for match in matches if not 'title' in match]
-
-        if span_texts:
-            span_text = ''.join(span_texts)
-            raw_ipa_obj["ipa_string"] = span_text
-            # print(span_text)
-            
+        if match:
+            extracted_text = match.group(1)
+            cleaned_text = extracted_text.replace('<span class="wrap"> </span>', ' ')
+            raw_ipa_obj["ipa_string"] = cleaned_text
+            # print(cleaned_text)
         else:
-            print("No nested ipa_string found with the present regular expression rules.")
+            # Extract text within nested span tags
+            pattern_span = re.compile(r'<span[^>]*>(.*?)</span>')
+            matches = pattern_span.findall(raw_ipa_obj["raw_ipa_string"])
+
+            # Filter out only the contents of the inner spans
+            span_texts = [match for match in matches if not 'title' in match]
+
+            if span_texts:
+                span_text = ''.join(span_texts)
+                raw_ipa_obj["ipa_string"] = span_text
+                # print(span_text)
+                
+            else:
+                print("No nested ipa_string found with the present regular expression rules.")
+        
+        return raw_ipa_obj
     
-    return raw_ipa_obj
+    if raw_ipa_obj["language"] == "English":
+        # Define the regex pattern to find content within <span> tags
+        pattern_span = re.compile(r'<span[^>]*>(.*?)</span>')
+        
+        # Search for matches using the regex pattern
+        matches = pattern_span.findall(raw_ipa_obj["raw_ipa_string"])
+        
+        # Process each match to extract text content only
+        extracted_text = ''
+        for match in matches:
+            # Remove any HTML tags and attributes using regex
+            clean_match = re.sub(r'<[^>]*>', '', match)
+            extracted_text += clean_match
+        
+        # Update raw_ipa_obj with the extracted IPA string
+        raw_ipa_obj["ipa_string"] = extracted_text.strip()
+        
+        return raw_ipa_obj
 
 main()
