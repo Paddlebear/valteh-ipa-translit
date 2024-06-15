@@ -30,7 +30,7 @@ def main():
             
         sanitized_input = sanitize_input(user_input)
         
-        raw_ipa_obj = get_article_ipa_object(generate_proper_noun_wiki_url(sanitized_input))
+        raw_ipa_obj = get_article_ipa_obj(noun_class, generate_proper_noun_wiki_url(sanitized_input))
         
         if raw_ipa_obj != 0:
             processed_ipa_obj = process_ipa_obj(noun_class, gender, raw_ipa_obj)
@@ -115,7 +115,8 @@ def generate_proper_noun_wiki_url(proper_noun):
     print(f"{WIKIPEDIA_URL_EN}{proper_noun}")
     return f"{WIKIPEDIA_URL_EN}{proper_noun}"
 
-def get_article_ipa_object(url):
+## IGNORE, THIS HAS BEEN REFACTORED INTO TWO SEPERATE FUNCTIONS
+def get_article_ipa_object(noun_class, url):
     """
     Scrapes the IPA string from a provided Wikipedia URL.
 
@@ -126,30 +127,142 @@ def get_article_ipa_object(url):
     soup = BeautifulSoup(page.content, HTML_PARSER)
     result = None
     language = None
+    element = None
     
     # TODO if city and no IPA is found, attempt to modify the url to end with <city_name>_(city) OR <city_name>_City.
     for i in ACCEPTED_LANGUAGES:
         # TODO consider looking for both title and href.
-        result = soup.find(title=f"Help:IPA/{i}") # TODO loop for 1 language multiple time until you find something that 
+        result = soup.find_all(title=f"Help:IPA/{i}") # TODO loop for 1 language multiple time until you find something that 
                                                   # TODO resembles ipa and not "IPA", and starts with "[" and ends with "]" or ""/
         if result != None:
             language = i
-            break
+            for r in result:
+                if ">[" in str(r) or ">/" in str(r):
+                    element = r
+                    break
+            if element != None:
+                break
     
     if result == None:
-        print(f"Netika atrasts IPA identifikators dotajā šķirklī: {url}")    
-        return 0
+        # if noun_class == PI:
+        #     page = requests.get(url+"_(city)")
+        #     soup = BeautifulSoup(page.content, HTML_PARSER)
+        #     result = None
+        #     language = None
+        #     element = None
+        
+        #     # TODO if city and no IPA is found, attempt to modify the url to end with <city_name>_(city) OR <city_name>_City.
+        #     for i in ACCEPTED_LANGUAGES:
+        #         # TODO consider looking for both title and href.
+        #         result = soup.find_all(title=f"Help:IPA/{i}") # TODO loop for 1 language multiple time until you find something that 
+        #                                                 # TODO resembles ipa and not "IPA", and starts with "[" and ends with "]" or ""/
+        #         if result != None:
+        #             language = i
+        #             for r in result:
+        #                 if ">[" in str(r) or ">/" in str(r):
+        #                     element = r
+        #                     break
+        #             if element != None:
+        #                 break
+                
+        #         if result == None:
+        #             print(f"Netika atrasts IPA identifikators dotajā šķirklī: {url}")    
+        #             return 0
+                    
+        #         else:    
+        #             return_obj = {
+        #                 "noun_class": "",
+        #                 "language": language,
+        #                 "gender": "",
+        #                 "raw_ipa_string": str(element), # Vrbt nevajag to str šeit. //vajag jo beautifulsoup
+        #                 "ipa_string": ""   
+        #             }
+            
+        #             return return_obj
+        # else:        
+            print(f"Netika atrasts IPA identifikators dotajā šķirklī: {url}")    
+            return 0
     
     else:
         return_obj = {
             "noun_class": "",
             "language": language,
             "gender": "",
-            "raw_ipa_string": str(result), # Vrbt nevajag to str šeit.
+            "raw_ipa_string": str(element), # Vrbt nevajag to str šeit. //vajag jo beautifulsoup
             "ipa_string": ""   
         }
         
         return return_obj
+    
+def get_ipa_element(url):
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, HTML_PARSER)
+    result = None
+    language = None
+    element = None
+    
+    # TODO if city and no IPA is found, attempt to modify the url to end with <city_name>_(city) OR <city_name>_City.
+    for i in ACCEPTED_LANGUAGES:
+        # TODO consider looking for both title and href.
+        result = soup.find_all(title=f"Help:IPA/{i}") # TODO loop for 1 language multiple time until you find something that 
+                                                  # TODO resembles ipa and not "IPA", and starts with "[" and ends with "]" or ""/
+        if result != None:
+            language = i
+            for r in result:
+                if ">[" in str(r) or ">/" in str(r):
+                    element = r
+                    break
+            if element != None:
+                break
+            
+    if result == None or element == None:
+        return None
+    else:
+        result_obj = {
+            "element": element,
+            "language": language
+        }
+        return result_obj
+    
+def get_article_ipa_obj(noun_class, url):
+    result = get_ipa_element(url)
+    if result == None:
+        if noun_class == PI:
+            url = url + "_City"
+            result = get_ipa_element(url)
+            if result == None:
+                print(f"Netika atrasts IPA identifikators dotajā šķirklī: {url}")    
+                return 0
+            else:
+                element = result["element"]
+                language = result["language"]
+                return_obj = {
+                    "noun_class": "",
+                    "language": language,
+                    "gender": "",
+                    "raw_ipa_string": str(element), # Vrbt nevajag to str šeit. //vajag jo beautifulsoup
+                    "ipa_string": ""   
+                }
+        
+                return return_obj
+                
+        else: 
+            print(f"Netika atrasts IPA identifikators dotajā šķirklī: {url}")    
+            return 0
+    else:
+        element = result["element"]
+        language = result["language"]
+        return_obj = {
+            "noun_class": "",
+            "language": language,
+            "gender": "",
+            "raw_ipa_string": str(element), # Vrbt nevajag to str šeit. //vajag jo beautifulsoup
+            "ipa_string": ""   
+        }
+        
+        return return_obj
+    
+
 
 def process_ipa_obj(noun_class, gender, raw_ipa_obj):
     """
