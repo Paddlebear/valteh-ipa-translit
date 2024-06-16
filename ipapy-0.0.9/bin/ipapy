@@ -1,0 +1,30 @@
+#!/usr/bin/env python
+# coding=utf-8
+
+"""
+ipapy contains data and functions to work with IPA strings.
+
+This is the main script, intended to be run from command line.
+"""
+
+from __future__ import absolute_import
+
+from ipapy.__main__ import main as package_main
+
+__author__ = "Alberto Pettarin"
+__copyright__ = "Copyright 2016-2019, Alberto Pettarin (www.albertopettarin.it)"
+__license__ = "MIT"
+__email__ = "alberto@albertopettarin.it"
+
+__version__ = "0.0.9"
+__status__ = "Production"
+
+def main():
+    package_main()
+
+
+if __name__ == '__main__':
+    main()
+
+
+
