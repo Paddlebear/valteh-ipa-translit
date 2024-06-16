@@ -3,6 +3,11 @@ import requests
 # import json
 import re
 from bs4 import BeautifulSoup
+from ipapy import UNICODE_TO_IPA
+from ipapy import is_valid_ipa
+from ipapy.ipachar import IPAConsonant
+from ipapy.ipachar import IPAVowel
+from ipapy.ipastring import IPAString
 
 ACCEPTED_LANGUAGES = ["Mandarin", "Lithuanian", "French", "Standard German", "Ukrainian", "Japanese", "English"] # The order is deliberate.
 PI = "pi" # city proper noun.
@@ -37,7 +42,12 @@ def main():
 
         # print(processed_ipa_obj["language"])    
         # print(processed_ipa_obj["raw_ipa_string"])
-        print(processed_ipa_obj["ipa_string"])
+        chars = processed_ipa_obj["ipa_string"]
+        s_uni = u"{0}".format(chars)  
+        charsipa = IPAString(unicode_string=s_uni)
+        # print(chars)
+        for c in charsipa:
+            print(u"%s" % (c))
         
         raw_exit_condition = None
         while raw_exit_condition not in ["y", "n"]:
