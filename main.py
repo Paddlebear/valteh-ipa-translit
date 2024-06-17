@@ -7,6 +7,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), 'ipap
 
 from ipa_scraper import IPAScraper
 from user_input import UserInput
+from ipa_processing import IPAProcessing
 
 from ipapy import UNICODE_TO_IPA
 from ipapy import is_valid_ipa
@@ -30,11 +31,11 @@ def main():
     """)
    
     print("""
- IPA-TRANSLIT ļauj pārveidot ievadītu īpašvārdu angļū valodā uz tā izceslems valodas
- IPA simboliem, kuri pēc tam tiek pārtulkoti latviešu valodā, sekojot norādītajiem likumiem (add link). 
+ IPA-TRANSLIT ļauj pārveidot ievadītu īpašvārdu angļu valodā uz tā izcelsmes valodas
+ IPA simboliem, kuri pēc tam tiek atveidoti latviešu valodā, sekojot latviešu valodas likumam un autoru personīgai interpretācijai. 
  
  Prorgramma ir atkarīga no tā, vai eksistē Wikipedia šķirklis dotajam īpašvārdam. Ja tas tiek ievadīts 
- nepareizi vai dotajā šķirklī neeksistē IPA simboli, tad p`rogramma nebūs spējīga parādīt nepieciešamo
+ nepareizi vai dotajā šķirklī neeksistē IPA simboli, tad programma nebūs spējīga parādīt nepieciešamo
  transliterāciju.    
     """)
     
@@ -53,6 +54,7 @@ def main():
     exit_condition = True
     user_input = UserInput()
     scraper = IPAScraper()
+    processing = IPAProcessing()
     
     try:
         while exit_condition:
@@ -69,10 +71,14 @@ def main():
                 chars = processed_ipa_obj["ipa_string"]
                 print(chars)
                 
-                charsipa = IPAString(unicode_string="chars")
+                # charsipa = IPAString(unicode_string="chars")
     
-                for c in charsipa:
-                    print(u"%s          %s" % (c, c.name))
+                # for c in charsipa:
+                #     print(u"%s          %s" % (c, c.name))
+                
+                string = processing.ipa_to_array(processed_ipa_obj)
+                
+                processing.eng_to_lv(chars)
     
             exit_condition = user_input.get_exit_condition()
     
