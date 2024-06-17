@@ -686,7 +686,171 @@ class IPAProcessing:
         print(ipachars, type(ipachars))
     
     def fr_to_lv(self, chars):
-        print("hi")
+        data = {
+            "ipa_consonants": [
+                {
+                    "b": "b"
+                },
+                {
+                    "d": "d"
+                },
+                {
+                    "f": "f"
+                },
+                {
+                    "ɡ": "g"
+                },
+                {
+                    "k": "k"
+                },
+                {
+                    "l": "l"
+                },
+                {
+                    "m": "m"
+                },
+                {
+                    "n": "n"
+                },
+                {
+                    "ɲ": "ņ"
+                },
+                {
+                    "ŋ": "n"
+                },
+                {
+                    "p": "p"
+                },
+                {
+                    "ʁ": "r"
+                },
+                {
+                    "s": "s"
+                },
+                {
+                    "ʃ": "š"
+                },
+                {
+                    "t": "t"
+                },
+                {
+                    "v": "v"
+                },
+                {
+                    "z": "z"
+                },
+                {
+                    "ʒ": "ž"
+                }
+            ],
+            "ipa_semivowels": [
+                {
+                    "j": "j"
+                },
+                {
+                    "w": "v"
+                },
+                {
+                    "ɥ": "ju"
+                }
+            ],
+            "ipa_oral_vowels": [
+                {
+                    "a": "a"
+                },
+                {
+                    "a": "a"  
+                },
+                {
+                    "ɑ": "a"
+                },
+                {
+                    "e": "e"
+                },
+                {
+                    "ɛ": "e"
+                },
+                {
+                    "ə": "a"
+                },
+                {
+                    "i": "i"
+                },
+                {
+                    "œ": "o"
+                },
+                {
+                    "ø": "o"
+                },
+                {
+                    "o": "o"
+                },
+                {
+                    "ɔ": "o"
+                },
+                {
+                    "u": "u"
+                },
+                {
+                    "y": "i"
+                }
+            ],
+            "ipa_nasal_vowels": [
+                {
+                    "ɑ̃": "a"
+                },
+                {
+                    "ɛ̃": "e"
+                },
+                {
+                    "œ̃": "o"
+                },
+                {
+                    "ɔ̃": "o"
+                }
+            ],
+            "ipa_suprasegmentals": [
+                {
+                    ".": ""
+                },
+                {
+                    "‿": ""
+                }
+            ]
+        }
+    
+        ipachars = IPAString(unicode_string=chars, ignore=True)
+        
+        combined_list = []
+        for key in data:
+            combined_list.extend(data[key])
+            
+        isAdded = False
+        processchars = []
+        for c in ipachars:
+            isAdded = False
+            for item in combined_list:
+                for key, value in item.items():
+                    if key != ":":
+                        char = UNICODE_TO_IPA[u"{0}".format(key)]
+                    if char == c:
+                        processchars.append(value)
+                        isAdded = True
+                        break
+                    if c.is_equivalent("long suprasegmental"):
+                        processchars.append(":")
+                        isAdded = True
+                        break
+                    if c.is_equivalent("word-break suprasegmental"):
+                        processchars.append(" ")
+                        isAdded = True
+                        break
+                if isAdded == True:
+                    break
+                        
+        print(processchars)
+        print(ipachars, type(ipachars))
+            
     
     
     def lt_to_lv(self, chars):
