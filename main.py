@@ -69,6 +69,7 @@ def main():
             if raw_ipa_obj:
                 processed_ipa_obj = scraper.process_ipa_obj(noun_class, gender, raw_ipa_obj)
                 chars = processed_ipa_obj["ipa_string"]
+                print(processed_ipa_obj["language"])
                 print(chars)
                 
                 # charsipa = IPAString(unicode_string="chars")
@@ -78,7 +79,7 @@ def main():
                 
                 string = processing.ipa_to_array(processed_ipa_obj)
                 
-                processing.eng_to_lv(chars)
+                processing.lt_to_lv(chars)
     
             exit_condition = user_input.get_exit_condition()
     
