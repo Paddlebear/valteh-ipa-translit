@@ -69,7 +69,7 @@ def main():
                 chars = processed_ipa_obj["ipa_string"]
                 print(chars)
                 
-                charsipa = IPAString(unicode_string=chars)
+                charsipa = IPAString(unicode_string="chars")
     
                 for c in charsipa:
                     print(u"%s          %s" % (c, c.name))
