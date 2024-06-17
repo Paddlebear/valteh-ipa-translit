@@ -84,7 +84,7 @@ class IPAProcessing:
                     "ts": "c"
                 },
                 {
-                    "ʈʂ": "č"
+                    "ʈʂ": "dž"
                 },
                 {
                     "w": "v"
@@ -131,7 +131,7 @@ class IPAProcessing:
                     "u": "u"
                 },
                 {
-                    "ʊ": "u"
+                    "ʊ": "o"
                 },
                 {
                     "y": "i"
@@ -602,16 +602,19 @@ class IPAProcessing:
                     "ɒ": "a"
                 },
                 {
-                    "æ": "e"
+                    "æ": "a"
                 },
                 {
                     "ɛ": "e"
                 },
                 {
+                    "ɜ": "ē"
+                },
+                {
                     "e": "e"
                 },
                 {
-                    "ɪ": "i"
+                    "ɪ": "e"
                 },
                 {
                     "i": "i"
@@ -629,7 +632,7 @@ class IPAProcessing:
                     "u": "u"
                 },
                 {
-                    "ʌ": "o"
+                    "ʌ": "a"
                 }
             ],
             "ipa_weak_vowels": [
@@ -854,193 +857,311 @@ class IPAProcessing:
     
     
     def lt_to_lv(self, chars):
+        # data = {
+        #     "ipa_consonants": [
+        #         {
+        #             "b": "b"
+        #         },
+        #         {
+        #             "d": "d"
+        #         },
+        #         {
+        #             "dz": "dz"
+        #         },
+        #         {
+        #             "dʒ": "dž"
+        #         },
+        #         {
+        #             "f": "f"
+        #         },
+        #         {
+        #             "ɡ": "g"
+        #         },
+        #         {
+        #             "ɣ": "h"
+        #         },
+        #         {
+        #             "k": "k"
+        #         },
+        #         {
+        #             "j": "j"
+        #         },
+        #         {
+        #             "ɫ": "l"
+        #         },
+        #         {
+        #             "m": "m"
+        #         },
+        #         {
+        #             "n": "n"
+        #         },
+        #         {
+        #             "ŋ": "n"
+        #         },
+        #         {
+        #             "p": "p"
+        #         },
+        #         {
+        #             "r": "r"
+        #         },
+        #         {
+        #             "s": "s"
+        #         },
+        #         {
+        #             "ɕ": "š"
+        #         },
+        #         {
+        #             "ʃ": "š"
+        #         },
+        #         {
+        #             "t": "t"
+        #         },
+        #         {
+        #             "ts": "c"
+        #         },
+        #         {
+        #             "tɕ": "č"
+        #         },
+        #         {
+        #             "tʃ": "č"
+        #         },
+        #         {
+        #             "v": "v"
+        #         },
+        #         {
+        #             "x": "h"
+        #         },
+        #         {
+        #             "z": "z"
+        #         },
+        #         {
+        #             "ʑ": "ž"
+        #         },
+        #         {
+        #             "ʒ": "ž"
+        #         },
+        #         {
+        #             "ʲ": "j"
+        #         }
+        #     ],
+        #     "ipa_vowels": [
+        #         {
+        #             "a": "a"
+        #         },
+        #         {
+        #             "ɛ": "e"
+        #         },
+        #         {
+        #             "æ": "a"
+        #         },
+        #         {
+        #             "ɐ": "a"
+        #         },
+        #         {
+        #             "e": "e"
+        #         },
+        #         {
+        #             "ɛ": "e"
+        #         },
+        #         {
+        #             "i": "i"
+        #         },
+        #         {
+        #             "ɪ": "i"
+        #         },
+        #         {
+        #             "o": "o"
+        #         },
+        #         {
+        #             "ɔ": "o"
+        #         },
+        #         {
+        #             "u": "u"
+        #         },
+        #         {
+        #             "ʊ": "u"
+        #         }
+        #     ]
+        # }
+    
+        # ipachars = IPAString(unicode_string=chars)
+        
+        # for c in ipachars:
+        #     print(c, c.name)
+        
+        # combined_list = []
+        # for key in data:
+        #     combined_list.extend(data[key])
+            
+        # isAdded = False
+        # processchars = []
+        # for c in ipachars:
+        #     isAdded = False
+        #     for item in combined_list:
+        #         for key, value in item.items():
+        #             if key != ":":
+        #                 char = UNICODE_TO_IPA[u"{0}".format(key)]
+        #             if char == c:
+        #                 processchars.append(value)
+        #                 isAdded = True
+        #                 break
+        #             if c.is_equivalent("long suprasegmental"):
+        #                 processchars.append(":")
+        #                 isAdded = True
+        #                 break
+        #             if c.is_equivalent("word-break suprasegmental"):
+        #                 processchars.append(" ")
+        #                 isAdded = True
+        #                 break
+        #         if isAdded == True:
+        #             break
+                        
+        # print(processchars)
+        print(chars)
+    
+    def ua_to_lv(self, chars):
         data = {
-            "ipa_consonants": [
+            "ipa_hard_consonants": [
                 {
                     "b": "b"
-                },
-                {
-                    "bʲ": "b"
                 },
                 {
                     "d": "d"
                 },
                 {
-                    "dʲ": "d"
-                },
-                {
                     "dz": "dz"
-                },
-                {
-                    "dzʲ": "dz"
                 },
                 {
                     "dʒ": "dž"
                 },
                 {
-                    "dʒʲ": "dž"
-                },
-                {
                     "f": "f"
-                },
-                {
-                    "fʲ": "f"
                 },
                 {
                     "ɡ": "g"
                 },
                 {
-                    "ɡʲ": "g"
-                },
-                {
                     "ɣ": "h"
                 },
                 {
-                    "ɣʲ": "h"
+                    "ɦ": "h"
                 },
                 {
                     "k": "k"
                 },
                 {
-                    "j": "j"
-                },
-                {
-                    "ɫ": "l"
-                },
-                {
-                    "kʲ": "k"
+                    "l": "l"
                 },
                 {
                     "m": "m"
                 },
                 {
-                    "lʲ": "ļ"
-                },
-                {
                     "n": "n"
-                },
-                {
-                    "mʲ": "m"
-                },
-                {
-                    "nʲ": "ņ"
-                },
-                {
-                    "ŋʲ": "n"
-                },
-                {
-                    "ŋ": "n"
-                },
-                {
-                    "pʲ": "p"
                 },
                 {
                     "p": "p"
                 },
                 {
-                    "rʲ": "r"
-                },
-                {
                     "r": "r"
-                },
-                {
-                    "sʲ": "s"
                 },
                 {
                     "s": "s"
                 },
                 {
-                    "ɕ": "š"
-                },
-                {
                     "ʃ": "š"
-                },
-                {
-                    "tʲ": "t"
                 },
                 {
                     "t": "t"
                 },
                 {
-                    "tsʲ": "c"
-                },
-                {
                     "ts": "c"
-                },
-                {
-                    "tɕ": "č"
                 },
                 {
                     "tʃ": "č"
                 },
                 {
-                    "vʲ": "v"
-                },
-                {
                     "v": "v"
                 },
                 {
-                    "xʲ": "h"
+                    "w": "v"
                 },
                 {
                     "x": "h"
                 },
                 {
-                    "zʲ": "z"
-                },
-                {
                     "z": "z"
                 },
                 {
-                    "ʑ": "ž"
-                },
-                {
                     "ʒ": "ž"
-                },
-                {
-                    "ʲ": "j"
                 }
             ],
             "ipa_vowels": [
                 {
-                    "a": "a"
+                    "ɑ":"a"
                 },
                 {
-                    "ɛ": "e"
+                    "ɛ":"e"
                 },
                 {
-                    "æ": "e"
+                    "i":"i"
                 },
                 {
-                    "ɐ": "a"
+                    "ɪ":"i"
                 },
                 {
-                    "e": "e"
+                    "ɔ":"o"
                 },
                 {
-                    "ɛ": "e"
+                    "u":"u"
+                },        
+                {
+                    "ɐ":"a"
                 },
                 {
-                    "i": "i"
+                    "e":"e"
                 },
                 {
-                    "ɪ": "i"
-                },
-                {
-                    "o": "o"
-                },
-                {
-                    "ɔ": "o"
-                },
-                {
-                    "u": "u"
+                    "o":"o"
                 },
                 {
                     "ʊ": "u"
                 }
+            ],
+            "ipa_suprasegmentals": [
+                {
+                    "ː":""
+                }
             ]
         }
-    
-    
-    def ua_to_lv(self, chars):
-        print("hi")
+        
+        ipachars = IPAString(unicode_string=chars, ignore=True)
+        
+        combined_list = []
+        for key in data:
+            combined_list.extend(data[key])
+            
+        isAdded = False
+        processchars = []
+        for c in ipachars:
+            isAdded = False
+            for item in combined_list:
+                for key, value in item.items():
+                    if key != ":":
+                        char = UNICODE_TO_IPA[u"{0}".format(key)]
+                    if char == c:
+                        processchars.append(value)
+                        isAdded = True
+                        break
+                    if c.is_equivalent("long suprasegmental"):
+                        processchars.append(":")
+                        isAdded = True
+                        break
+                    if c.is_equivalent("word-break suprasegmental"):
+                        processchars.append(" ")
+                        isAdded = True
+                        break
+                if isAdded == True:
+                    break
+                        
+        print(processchars)
+        print(ipachars, type(ipachars))

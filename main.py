@@ -41,8 +41,7 @@ def main():
     
     print("""
  Atbalstītās valodas:
- - "Mandarin", 
- - "Lithuanian", 
+ - "Mandarin",
  - "French", 
  - "Standard German", 
  - "Ukrainian", 
@@ -79,7 +78,7 @@ def main():
                 
                 string = processing.ipa_to_array(processed_ipa_obj)
                 
-                processing.lt_to_lv(chars)
+                processing.ua_to_lv(chars)
     
             exit_condition = user_input.get_exit_condition()
     
