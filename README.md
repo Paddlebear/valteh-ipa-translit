@@ -5,7 +5,7 @@
  ██ ██      ██   ██        ██    ██   ██ ██   ██ ██  ██ ██      ██ ██      ██    ██    
  ██ ██      ██   ██        ██    ██   ██ ██   ██ ██   ████ ███████ ███████ ██    ██ 
 
-Praktiskais darbs "Svešvalodas-IPA-latviešu transliterācija" LU Valodu tehnoloģijas 2024. gada kursam.
+"Svešvalodas-IPA-latviešu transliterācija" project for LU `Valodu tehnoloģijas` 2024 course.
 ```
 
 
