@@ -4,17 +4,17 @@
         "noun_class": "pi",
         "gender": "s",
         "raw_proper_noun_arr": [
-            "Indianapolis",
+            "Detroit",
             "Dallas",
             "chicago",
             "San_Diego",
-            "birmingham",
+            "Atlanta",
             "bristol",
             "san francisco",
             "boston",
-            "seattle",
-            "edinburgh",
-            "glasgow"
+            "Cleveland",
+            "birmingham",
+            "Honolulu"
         ]
     },
     "person_male": {
@@ -25,7 +25,7 @@
             "Rob_Schneider",
             "barack obama",
             "david beckham",
-            "leonardo dicaprio",
+            "Oscar_Zeta_Acosta",
             "al pacino",
             "James_Monroe",
             "John_Quincy_Adams",
