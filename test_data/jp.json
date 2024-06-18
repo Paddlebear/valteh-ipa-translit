@@ -21,16 +21,16 @@
         "noun_class": "pv",
         "gender": "v",
         "raw_proper_noun_arr": [
-            "ken watanabe",
-            "takeshi kitano",
-            "tadanobu asano",
-            "masaharu fukuyama",
-            "takashi miike",
-            "takuya kimura",
-            "hiroshi abe",
-            "jun matsumoto",
-            "shun oguri",
-            "ryo nishikido"
+            "Shinzo_Abe",
+            "Junichiro_Koizumi",
+            "Takeshi_Kitano",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
         ]
     },
     "person_female": {
@@ -38,16 +38,17 @@
         "noun_class": "pv",
         "gender": "s",
         "raw_proper_noun_arr": [
-            "rinko kikuchi",
-            "yu aoi",
-            "aki maeda",
-            "keiko kitagawa",
-            "mao inoue",
-            "yui aragaki",
-            "suzu hirose",
-            "satomi ishihara",
-            "kasumi arimura",
-            "sayaka yamaguchi"
+            "Naomi_Osaka",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
         ]
     }
 }
+ 
