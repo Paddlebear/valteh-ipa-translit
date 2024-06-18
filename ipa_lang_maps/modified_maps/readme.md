@@ -1,0 +1,1 @@
+ɪ gadījumā jātaisa post-processing, jo viņu ļoti nekonsekventi pieraksta - citreiz e, citreiz i (piemēram Blančeta un Dablena(Dublin)), kuri abi izmanto ɪ simbolu

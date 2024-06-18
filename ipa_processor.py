@@ -34,10 +34,13 @@ class IPAProcessor:
         """        
         notifications = Notifications()
         user_input = UserInput()
+        scraper = IPAScraper()
         
         # print(user_input.PI)
         
         notifications.output_transforming_ipa_to_lv()
+        
+        language = ipa_obj["language"]
         
         language_ipa_arr = self._get_language_ipa_arr(ipa_obj["language"])
         
@@ -69,13 +72,31 @@ class IPAProcessor:
                 if is_added == True:
                     break
                         
+        processed_chars.append(" ")
         print(processed_chars)
         print(ipa_chars, type(ipa_chars))
         
-        ipa_obj["raw_ipa_to_lv"] = ''.join(processed_chars)
+        ipa_obj["raw_ipa_to_lv"] = processed_chars
         
+        if language == scraper.ACCEPTED_LANGUAGES[0]:
+            self.post_ch_to_lv(ipa_obj)
+            
+        elif language == scraper.ACCEPTED_LANGUAGES[1]:
+            self.post_fr_to_lv(ipa_obj)
         
-        #TODO post process the "raw_ipa_to_lv" and place that into "processed_ipa_to_lv"
+        elif language == scraper.ACCEPTED_LANGUAGES[2]:
+            self.post_de_to_lv(ipa_obj)
+            
+        elif language == scraper.ACCEPTED_LANGUAGES[3]:
+            self.post_ua_to_lv(ipa_obj)
+        
+        elif language == scraper.ACCEPTED_LANGUAGES[4]:
+            self.post_jp_to_lv(ipa_obj)
+
+        elif language == scraper.ACCEPTED_LANGUAGES[5]:
+            self.post_eng_to_lv(ipa_obj)
+        
+        else: print("unknown error, contact developers")
         
         return ipa_obj
         
@@ -195,7 +216,75 @@ class IPAProcessor:
         #     print(c)
             
         return chars
+    
+    
+    def post_ch_to_lv(self, ipa_obj):
+        print("hello world")
+    
+    def post_de_to_lv(self, ipa_obj):
+        print("hello world")
+        
+    def post_eng_to_lv(self, ipa_obj):
+        print("hello world")
+        
+    def post_fr_to_lv(self, ipa_obj):
+        print("hello world")
+        
+    def post_jp_to_lv(self, ipa_obj):
+        print("hello world")
+        
+    def post_ua_to_lv(self, ipa_obj):
+        array = ipa_obj["raw_ipa_to_lv"]
+        gender = ipa_obj["gender"]
+        print("testing")
+        print(array)
+        ## STRING CLEANUP ACCORDING TO RULES
+        i = 0
+        while i < len(array):
+            if array[i] == "dž" and array[i+1] == " ":
+                array[i] = "č"
+            if array[i] == "j":
+                print("this is before j:", array[i-1], array[i])
+                if i != 0 and array[i-1] == "n":
+                    if array[i+1] == "i" or array[i+1] == "a" or array[i+1] == "o" or array[i+1] == "u" or array[i+1] == "e" or array[i+1] == "j":
+                        array[i-1] = "ņ"
+                elif i != 0 and array[i-1] == "l":
+                    if array[i+1] == "i" or array[i+1] == "a" or array[i+1] == "o" or array[i+1] == "u" or array[i+1] == "e" or array[i+1] == "j":
+                        array[i-1] = "ļ"
+                
+                if (i != 0 and array[i-1] != "i" and array[i-1] != " "):
+                    del array[i]
+            i = i+1
             
+        ## NAME ENDINGS
+        i = 0
+        while i < len(array):
+            if array[i] == " ":
+                print ("symbols:", array[i-3], array[i-2], array[i-1])
+                if (array[i-3] == "n" or array[i-3] == "l" or array[i-3] == "ņ" or array[i-3] == "ļ") and array[i-2] == "i" and array[i-1] == "j":
+                    if(gender == UserInput.MALE):
+                        array.insert(i, "s")
+                    else: array.insert(i,"a")
+                    i = i+1
+                elif array[i-2] == "i" and array[i-1] == "j":
+                    if(gender == UserInput.MALE):
+                        array[i-1] = "s"
+                    elif (gender == UserInput.FEMALE): 
+                        print("i-1:", array[i-1])
+                        print("to delete", array[i-2])
+                        array[i-1] = "a"
+                        del array[i-2]
+                        # i = i-1
+                    i = i+1
+                else:
+                    if (gender == UserInput.MALE):
+                        array.insert(i, "s")
+                    else: array.insert(i,"a")
+                    i = i+1
+            i = i+1
+        ipa_obj["processed_ipa_to_lv"] = array
+    
+    
     
     def ch_to_lv(self, chars):
         data = {
