@@ -8,8 +8,8 @@ from bs4 import BeautifulSoup
 
 
 class IPAScraper:
-    ACCEPTED_LANGUAGES = ["Mandarin", "French", "Standard German", "Ukrainian", "Japanese", "English"]
-    ACCEPTED_LANGUAGES_CODES = ["zh", "fr", "de", "ua", "jp", "eng"]
+    ACCEPTED_LANGUAGES = ["Mandarin", "French", "Ukrainian", "Japanese", "Standard German", "English"]
+    ACCEPTED_LANGUAGES_CODES = ["zh", "fr", "ua", "jp", "de", "eng"]
     WIKIPEDIA_URL_EN = "https://en.wikipedia.org/wiki/"
     HTML_PARSER = "html.parser"
     

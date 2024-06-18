@@ -13,9 +13,9 @@ class DataHandler:
     IPA_FILE_KEYS = [
         "ch_lv.json",
         "fr_lv.json",
-        "de_lv.json",
         "ua_lv.json",
         "jp_lv.json",
+        "de_lv.json",
         "eng_lv.json",
         ]    
     TEST_FILE_KEYS = [

@@ -52,6 +52,7 @@ class IPAProcessor:
         
         print(language_ipa_arr)
         for c in ipa_chars:
+            print(c, c.name)
             is_added = False
             for item in language_ipa_arr:
                 for key, value in item.items():
@@ -85,13 +86,13 @@ class IPAProcessor:
             self.post_fr_to_lv(ipa_obj)
         
         elif language == scraper.ACCEPTED_LANGUAGES[2]:
-            self.post_de_to_lv(ipa_obj)
+            self.post_ua_to_lv(ipa_obj)
             
         elif language == scraper.ACCEPTED_LANGUAGES[3]:
-            self.post_ua_to_lv(ipa_obj)
+            self.post_jp_to_lv(ipa_obj)
         
         elif language == scraper.ACCEPTED_LANGUAGES[4]:
-            self.post_jp_to_lv(ipa_obj)
+            self.post_de_to_lv(ipa_obj)
 
         elif language == scraper.ACCEPTED_LANGUAGES[5]:
             self.post_eng_to_lv(ipa_obj)
@@ -236,6 +237,7 @@ class IPAProcessor:
     def post_ua_to_lv(self, ipa_obj):
         array = ipa_obj["raw_ipa_to_lv"]
         gender = ipa_obj["gender"]
+        noun_class = ipa_obj["noun_class"]
         print("testing")
         print(array)
         ## STRING CLEANUP ACCORDING TO RULES
@@ -246,22 +248,29 @@ class IPAProcessor:
             if array[i] == "j":
                 print("this is before j:", array[i-1], array[i])
                 if i != 0 and array[i-1] == "n":
-                    if array[i+1] == "i" or array[i+1] == "a" or array[i+1] == "o" or array[i+1] == "u" or array[i+1] == "e" or array[i+1] == "j":
+                    if array[i+1] == "i" or array[i+1] == "a" or array[i+1] == "o" or array[i+1] == "u" or array[i+1] == "e" or array[i+1] == "j" or array[i+1] == " ":
                         array[i-1] = "ņ"
                 elif i != 0 and array[i-1] == "l":
-                    if array[i+1] == "i" or array[i+1] == "a" or array[i+1] == "o" or array[i+1] == "u" or array[i+1] == "e" or array[i+1] == "j":
+                    if array[i+1] == "i" or array[i+1] == "a" or array[i+1] == "o" or array[i+1] == "u" or array[i+1] == "e" or array[i+1] == "j" or array[i+1] == "v" or array[i+1]==" ":
                         array[i-1] = "ļ"
                 
-                if (i != 0 and array[i-1] != "i" and array[i-1] != " "):
+                if (i != 0 and array[i-1] != "i" and array[i-1] != " " and array[i-1] != "u" and array[i-1] != "o" and array[i-1] != "e" and array[i-1] != "a" and array[i-1] != "v" and array[i-1] != "t"):
                     del array[i]
+            if array[i] == ":":
+                if array[i-1] == "n":
+                    array[i] = array[i-1]
+            if (array[i] == ":" and gender == UserInput.FEMALE):
+                if array[i-1] == "č" or array[i-1] == "š" or array[i-1] == "ž":
+                    array[i] = "j"
+            if array[i] == " " and i+1 < len(array) and noun_class == UserInput.PI:
+                del array[i]
             i = i+1
-            
         ## NAME ENDINGS
+        
         i = 0
         while i < len(array):
             if array[i] == " ":
-                print ("symbols:", array[i-3], array[i-2], array[i-1])
-                if (array[i-3] == "n" or array[i-3] == "l" or array[i-3] == "ņ" or array[i-3] == "ļ") and array[i-2] == "i" and array[i-1] == "j":
+                if (array[i-3] == "n" or array[i-3] == "l" or array[i-3] == "ņ" or array[i-3] == "ļ" or array[i-3] == "g") and array[i-2] == "i" and array[i-1] == "j":
                     if(gender == UserInput.MALE):
                         array.insert(i, "s")
                     else: array.insert(i,"a")
@@ -278,9 +287,13 @@ class IPAProcessor:
                     i = i+1
                 else:
                     if (gender == UserInput.MALE):
-                        array.insert(i, "s")
-                    else: array.insert(i,"a")
-                    i = i+1
+                        if (array[i-1] != "o" and array[i-1] != "e"):
+                            array.insert(i, "s")
+                            i = i+1
+                    else: 
+                        if array[i-1] != "a" and array[i-1] != "e" and array[i-1] != "o" and array[i-1] != "i":
+                            array.insert(i,"a")
+                            i = i+1              
             i = i+1
         ipa_obj["processed_ipa_to_lv"] = array
     
