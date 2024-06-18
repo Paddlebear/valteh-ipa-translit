@@ -4,14 +4,14 @@
         "noun_class": "pi",
         "gender": "s",
         "raw_proper_noun_arr": [
-            "",
-            "",
+            "Clermont-Ferrand",
+            "Limoges",
             "lyon",
             "toulouse",
             "nice",
             "nantes",
             "strasbourg",
-            "",
+            "Marseille",
             "bordeaux",
             "lille"
         ]
@@ -43,11 +43,11 @@
             "Anouk_Aimée",
             "Brigitte_Bardot",
             "Sandrine_Bonnaire",
-            "",
+            "Louise_Bourgeois",
             "Juliette_Binoche",
             "Capucine",
             "Leslie_Caron",
-            ""
+            "Marie_Antoinette"
         ]
     }
 }
