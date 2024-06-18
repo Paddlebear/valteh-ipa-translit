@@ -12,8 +12,8 @@
             "zaporizhia",
             "vinnytsia",
             "kherson",
-            "chernivtsi",
-            "ivano-frankivsk"
+            "Chernobyl",
+            "Kryvyi_Rih"
         ]
     },
     "person_male": {
@@ -22,15 +22,15 @@
         "gender": "v",
         "raw_proper_noun_arr": [
             "volodymyr zelensky",
-            "arseniy yatsenyuk",
-            "serhiy rebrov",
-            "oleh sentsov",
-            "vasyl lomachenko",
+            "Arseniy_Yatsenyuk",
             "oleksandr usyk",
-            "bohdan stupka",
-            "yuriy andrukhovych",
-            "mykola hrynko",
-            "ivan franko"
+            "Mark_Kac",
+            "",
+            "Ivan_Puluj",
+            "Trofim_Lysenko",
+            "Nick_Holonyak",
+            "Sergei_Korolev",
+            ""
         ]
     },
     "person_female": {
@@ -39,15 +39,15 @@
         "gender": "s",
         "raw_proper_noun_arr": [
             "milla jovovich",
-            "tina karol",
-            "jamala",
-            "yulia tymoshenko",
-            "olga kurylenko",
-            "mariya yaremchuk",
-            "natalie wood",
             "ruslana",
-            "lyudmyla monastyrska",
-            "iryna bilyk"
+            "jamala",
+            "Maryna_Viazovska",
+            "Olga_Kurylenko",
+            "",
+            "",
+            "",
+            "",
+            ""
         ]
     }
 }
