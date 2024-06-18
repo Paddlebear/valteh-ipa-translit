@@ -37,29 +37,29 @@ class IPAProcessor:
         
         language_ipa_arr = self._get_language_ipa_arr(ipa_obj["language"])
         ipa_chars = IPAString(unicode_string=ipa_obj["ipa_str"], ignore=True)
-        isAdded = False
+        is_added = False
         processed_chars = []
         
         print(language_ipa_arr)
         for c in ipa_chars:
-            isAdded = False
+            is_added = False
             for item in language_ipa_arr:
                 for key, value in item.items():
                     if key != ":":
                         char = UNICODE_TO_IPA[u"{0}".format(key)]
                     if char == c:
                         processed_chars.append(value)
-                        isAdded = True
+                        is_added = True
                         break
                     if c.is_equivalent("long suprasegmental"):
                         processed_chars.append(":")
-                        isAdded = True
+                        is_added = True
                         break
                     if c.is_equivalent("word-break suprasegmental"):
                         processed_chars.append(" ")
-                        isAdded = True
+                        is_added = True
                         break
-                if isAdded == True:
+                if is_added == True:
                     break
                         
         print(processed_chars)
