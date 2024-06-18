@@ -21,16 +21,16 @@
         "noun_class": "pv",
         "gender": "v",
         "raw_proper_noun_arr": [
-            "vincent cassel",
-            "jean reno",
             "gerard depardieu",
-            "omar sy",
-            "jean dujardin",
-            "louis garrel",
-            "alain delon",
-            "daniel auteuil",
-            "julien dore",
-            "gaspar ulliel"
+            "Antonin_Artaud",
+            "Jean-Louis_Aubert",
+            "Claude_Autant-Lara",
+            "Daniel_Auteuil",
+            "Jean-Paul_Belmondo",
+            "François_Berléand",
+            "Bourvil",
+            "Dany_Boon",
+            "Charles_Boyer"
         ]
     },
     "person_female": {
@@ -39,15 +39,15 @@
         "gender": "s",
         "raw_proper_noun_arr": [
             "marion cotillard",
-            "audrey tautou",
-            "isabelle huppert",
-            "juliette binoche",
-            "lea seydoux",
-            "brigitte bardot",
-            "catherine deneuve",
-            "eva green",
             "laetitia casta",
-            "vanessa paradis"
+            "Anouk_Aimée",
+            "Brigitte_Bardot",
+            "Sandrine_Bonnaire",
+            "Marion_Cotillard",
+            "Juliette_Binoche",
+            "Capucine",
+            "Leslie_Caron",
+            "Laetitia_Casta"
         ]
     }
 }
