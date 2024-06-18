@@ -4,16 +4,7 @@ from ipa_scraper import IPAScraper
 from user_input import UserInput
 from ipa_processor import IPAProcessor
 
-import json
-# import sys
-# import os
-# Add the local library path to the system path
-# sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), 'ipapy-0.0.9')))
-# from ipapy import UNICODE_TO_IPA
-# from ipapy import is_valid_ipa
-# from ipapy.ipachar import IPAConsonant
-# from ipapy.ipachar import IPAVowel
-# from ipapy.ipastring import IPAString
+# import json
 
 def main():
     """
@@ -46,10 +37,12 @@ def main():
                 gender = user_input.FEMALE    
             
             notifications.output_delimiter()
+            notifications.output_retrieving_ipa_from_wiki()
             # Get the IPA string and its related data with web scraping and the user inputs.
             ipa_obj = scraper.get_ipa_object(proper_noun, noun_class, gender)
-            
-            print(json.dumps(ipa_obj, indent=4))
+
+            # print(json.dumps(ipa_obj, indent=4))            
+            notifications.print_ipa_obj(ipa_obj)
             
             # If no IPA string was found.
             if ipa_obj["ipa_str"] == None:
@@ -61,7 +54,8 @@ def main():
                 notifications.output_delimiter()
                 ipa_obj = processor.transform_ipa_to_lv(ipa_obj)
                 notifications.output_delimiter()
-                print(json.dumps(ipa_obj, indent=4))
+                # print(json.dumps(ipa_obj, indent=4))
+                notifications.print_ipa_obj(ipa_obj)
             
                 # print(processor._get_language_ipa(ipa_obj["language"]))
                 # chars = ipa_obj["ipa_str"]

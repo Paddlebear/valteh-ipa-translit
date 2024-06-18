@@ -56,5 +56,23 @@ class Notifications:
                 
         print("Netika atrasts IPA identifikators dotajā šķirklī: {0}\n".format(wiki_url))
     
+    def output_retrieving_ipa_from_wiki(self):
+        """
+        Outputs notifications for retrieving IPA from Wikipedia.
+        """        
+        
+        print("\nIegūst IPA no Vikipēdijas...\n")
+        
     def output_transforming_ipa_to_lv(self):
+        """
+        Outputs notifications for transforming ipa to lv.
+        """        
+        
         print("\nTranformē IPA uz Latviešu valodu...\n")
+        
+    def print_ipa_obj(self, ipa_obj):
+        for key, value in ipa_obj.items():
+            # Process the key
+            processed_key = key.replace('_', ' ').title()
+            # Print the key and value
+            print(f"{processed_key}: {value}")

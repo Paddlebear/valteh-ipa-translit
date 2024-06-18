@@ -13,10 +13,11 @@ from ipapy.ipachar import IPASuprasegmental
 from ipapy.ipastring import IPAString
 
 class IPAProcessor:
-    PI = "pi"
-    PV = "pv"
-    MALE = "v"
-    FEMALE = "s"
+    #* Prob not needed - if you do, import user_inputs and use the values defined there.
+    # PI = "pi"
+    # PV = "pv"
+    # MALE = "v"
+    # FEMALE = "s"
     
     def transform_ipa_to_lv(self, ipa_obj):
         """
@@ -72,10 +73,26 @@ class IPAProcessor:
         return ipa_obj
         
         
-    def _process_ipa_string_chars(self, language, ipa_chars):
+    def _process_ipa_string_chars(self, language, noun_class, gender, ipa_chars):
+        """_summary_
+
+        Args:
+            language (_type_): _description_
+            noun_class (_type_): _description_
+            gender (_type_): _description_
+            ipa_chars (_type_): _description_
+        """        
         print()
         
-    def _post_process_ipa_to_lv():
+    def _post_process_ipa_to_lv(self, language, noun_class, gender, ipa_chars):
+        """_summary_
+
+        Args:
+            language (_type_): _description_
+            noun_class (_type_): _description_
+            gender (_type_): _description_
+            ipa_chars (_type_): _description_
+        """        
         print()
     
     def _convert_ipa_str_to_array(self, initial_ipa_string):
