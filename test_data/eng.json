@@ -22,16 +22,16 @@
         "noun_class": "pv",
         "gender": "v",
         "raw_proper_noun_arr": [
-            "rob schneider",
+            "Rob_Schneider",
             "barack obama",
             "david beckham",
             "leonardo dicaprio",
-            "tom hanks",
-            "johnny depp",
-            "brad pitt",
-            "morgan freeman",
             "al pacino",
-            "michael caine"
+            "James_Monroe",
+            "John_Quincy_Adams",
+            "Martin_Van_Buren",
+            "James_K._Polk",
+            "James_Buchanan"
         ]
     },
     "person_female": {
@@ -43,12 +43,12 @@
             "scarlett johansson",
             "adele",
             "rihanna",
-            "margaret thatcher",
+            "",
             "kate winslet",
             "oprah winfrey",
-            "anne hathaway",
-            "julia roberts",
-            "j.k. rowling"
+            "j.k. rowling",            
+            "",
+            ""
         ]
     }
 }
