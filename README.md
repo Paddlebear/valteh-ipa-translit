@@ -23,7 +23,7 @@ Run:
 - `pip install requests`,
 - `pip install beautifulsoup4`.
 
-### [ipay0.0.9](https://github.com/pettarin/ipapy)
+### [ipapy0.0.9](https://github.com/pettarin/ipapy)
 
 The current release for `ipapy` is broken on a Python release no later than 3.12., and so cannot be installed and used through pip - it should be uninstalled, to avoid any further issues related to imports.
 
@@ -43,7 +43,7 @@ Alternatively you can run a DEMO for the currently supported languages using the
 
 ## How does it work?
 
-The program takes in the user inputter `proper noun`, `noun_class` and `gender`, and from that 
+The program takes in the user inputted `proper noun`, `noun_class` and `gender`, and from that 
 
 The input should be in English, for example:
 - timothee chalamet,
@@ -51,7 +51,7 @@ The input should be in English, for example:
 - riga
 - tokyo
 
-The inputted proper noun will be sanitized, and used as the end part to the url leading to a Wikipedia article detailing the person or city. 
+The inputted proper noun will be sanitized, and used as the end part to the url leading to a Wikipedia article detailing the person or city. You can always input the actual ending for the URL that you want to scrape, but the input sanitizing function might get in the way of that.
 
 The article is then scraped for an IPA string, based on an accepted language list, with a deliberate oder: `["Mandarin", "French", "Ukrainian", "Japanese", "Standard German", "English"]`. If no IPA is found, the program ends its iteration.
 
