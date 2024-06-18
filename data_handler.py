@@ -21,8 +21,8 @@ class DataHandler:
     TEST_FILE_KEYS = [
         # "zh.json",
         # "fr.json",
-        "de.json",
-        # "ua.json",
+        #"de.json",
+         "ua.json",
         # "jp.json",
         # "eng.json",
         ]

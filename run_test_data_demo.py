@@ -33,7 +33,7 @@ def main():
                         if ipa_obj["ipa_str"] != None:
                             ipa_obj = ipa_processor.transform_ipa_to_lv(ipa_obj)
                                     
-                        ipa_string_result = ipa_obj["raw_ipa_to_lv"]
+                        ipa_string_result = ipa_obj["processed_ipa_to_lv"]
                         
                         print(f"{item} -> {ipa_string_result}")
                     print("\n")
