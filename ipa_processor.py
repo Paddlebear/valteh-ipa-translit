@@ -1,6 +1,7 @@
 from ipa_scraper import IPAScraper
 from data_handler import DataHandler
 from notifications import Notifications
+from user_input import UserInput
 
 import sys
 import os
@@ -32,10 +33,16 @@ class IPAProcessor:
             JSON: the ipa_obj with modified fields.
         """        
         notifications = Notifications()
+        user_input = UserInput()
+        
+        # print(user_input.PI)
         
         notifications.output_transforming_ipa_to_lv()
         
         language_ipa_arr = self._get_language_ipa_arr(ipa_obj["language"])
+        
+        # TODO if language_ipa_arr == none, return error.
+        
         ipa_chars = IPAString(unicode_string=ipa_obj["ipa_str"], ignore=True)
         is_added = False
         processed_chars = []
@@ -162,9 +169,7 @@ class IPAProcessor:
             return None
 
         return ipa_transliteration_arr
-    
-    
-    
+       
     
     def ipa_to_array(self, ipa_obj):
         nounclass = ipa_obj["noun_class"]

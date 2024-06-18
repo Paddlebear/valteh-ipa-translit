@@ -71,6 +71,13 @@ class Notifications:
         print("\nTranformē IPA uz Latviešu valodu...\n")
         
     def print_ipa_obj(self, ipa_obj):
+        """
+        Format ipa_obj fields in a readable format.
+
+        Args:
+            ipa_obj (JSON): ipa_obj
+        """        
+        
         for key, value in ipa_obj.items():
             # Process the key
             processed_key = key.replace('_', ' ').title()

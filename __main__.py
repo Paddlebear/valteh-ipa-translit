@@ -50,7 +50,6 @@ def main():
                 notifications.output_no_ipa_string_found(ipa_obj["wiki_url_to_proper_noun"])
             # If an IPA string was found in the wiki article.
             else:
-                
                 notifications.output_delimiter()
                 ipa_obj = processor.transform_ipa_to_lv(ipa_obj)
                 notifications.output_delimiter()
