@@ -55,3 +55,6 @@ class Notifications:
         """
                 
         print("Netika atrasts IPA identifikators dotajā šķirklī: {0}\n".format(wiki_url))
+    
+    def output_transforming_ipa_to_lv(self):
+        print("\nTranformē IPA uz Latviešu valodu...\n")

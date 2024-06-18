@@ -5,15 +5,15 @@ from user_input import UserInput
 from ipa_processor import IPAProcessor
 
 import json
-import sys
-import os
+# import sys
+# import os
 # Add the local library path to the system path
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), 'ipapy-0.0.9')))
-from ipapy import UNICODE_TO_IPA
-from ipapy import is_valid_ipa
-from ipapy.ipachar import IPAConsonant
-from ipapy.ipachar import IPAVowel
-from ipapy.ipastring import IPAString
+# sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), 'ipapy-0.0.9')))
+# from ipapy import UNICODE_TO_IPA
+# from ipapy import is_valid_ipa
+# from ipapy.ipachar import IPAConsonant
+# from ipapy.ipachar import IPAVowel
+# from ipapy.ipastring import IPAString
 
 def main():
     """
@@ -24,7 +24,7 @@ def main():
     notifications = Notifications()
     user_input = UserInput()
     scraper = IPAScraper()
-    processing = IPAProcessor()
+    processor = IPAProcessor()
     exit_condition = True
     
     try:
@@ -57,10 +57,19 @@ def main():
                 notifications.output_no_ipa_string_found(ipa_obj["wiki_url_to_proper_noun"])
             # If an IPA string was found in the wiki article.
             else:
-                chars = ipa_obj["ipa_str"]
-                print(ipa_obj["language"])
-                print(chars)
-                processing.ch_to_lv(chars)
+                
+                notifications.output_delimiter()
+                ipa_obj = processor.transform_ipa_to_lv(ipa_obj)
+                notifications.output_delimiter()
+                print(json.dumps(ipa_obj, indent=4))
+            
+                # print(processor._get_language_ipa(ipa_obj["language"]))
+                # chars = ipa_obj["ipa_str"]
+                # print(ipa_obj["language"])
+                # print(chars)
+                # processing.ch_to_lv(chars)
+                
+
                 # processed_ipa_obj = scraper.process_ipa_obj(noun_class, gender, raw_ipa_obj)
                 # chars = processed_ipa_obj["ipa_string"]
                 # print(processed_ipa_obj["language"])

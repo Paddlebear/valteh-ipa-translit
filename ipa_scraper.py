@@ -9,6 +9,7 @@ from bs4 import BeautifulSoup
 
 class IPAScraper:
     ACCEPTED_LANGUAGES = ["Mandarin", "French", "Standard German", "Ukrainian", "Japanese", "English"]
+    ACCEPTED_LANGUAGES_CODES = ["zh", "fr", "de", "ua", "jp", "eng"]
     WIKIPEDIA_URL_EN = "https://en.wikipedia.org/wiki/"
     HTML_PARSER = "html.parser"
     
@@ -18,15 +19,17 @@ class IPAScraper:
         noun_class,
         gender,
         ):
-        """_summary_
+        """
+        Creates an ipa object that contains all of the data
+        about the user selected proper noun.
 
         Args:
-            proper_noun (_type_): _description_
-            noun_class (_type_): _description_
-            gender (_type_): _description_
+            proper_noun (str): user selected proper noun.
+            noun_class (str): user selected noun class.
+            gender (str): user selected gender for the proper noun.
 
         Returns:
-            _type_: _description_
+            JSON: `ipa_obj`.
         """        
         
         wiki_url = self._get_proper_noun_wiki_url(proper_noun)
@@ -53,31 +56,37 @@ class IPAScraper:
                     raw_ipa_html_obj_and_language["raw_ipa_html_obj"], 
                     raw_ipa_html_obj_and_language["language"]
                     ),
-            "ipa_to_lv": None    
+            "raw_ipa_to_lv": None,
+            "processed_ipa_to_lv": None    
         }
         
         return result
     
     def _get_proper_noun_wiki_url(self, proper_noun):
-        """_summary_
+        """
+        Create the wikipedia url to the user
+        selected proper noun.
 
         Args:
-            proper_noun (_type_): _description_
+            proper_noun (str): the user selected proper noun.
 
         Returns:
-            _type_: _description_
+            str: the wikipedia url to the proper noun.
         """     
            
         return f"{self.WIKIPEDIA_URL_EN}{proper_noun}"
     
     def _get_scraped_ipa_html_obj(self, wiki_url):
-        """_summary_
+        """
+        Web scrapes the wiki_url for the ipa object and its parent
+        html objects.
 
         Args:
-            wiki_url (_type_): _description_
+            wiki_url (str): the wikipedia url to the proper noun.
 
         Returns:
-            _type_: _description_
+            JSON: JSON collection containing the html object and the 
+                language, for which the IPA string was found. 
         """      
           
         page = requests.get(wiki_url)
@@ -106,50 +115,90 @@ class IPAScraper:
             return {"language": language, "raw_ipa_html_obj": str(html_element)}
     
     def _get_ipa_string(self, raw_ipa_obj, language):
-        """_summary_
+        """
+        Extracts the ipa_string from the ipa html object.
 
         Args:
-            raw_ipa_obj (_type_): _description_
-            language (_type_): _description_
+            raw_ipa_obj (str): the html object, that needs to be parsed, to retrieve
+                            its contained ipa_string.
+            language (str): the language of the ipa_string.
 
         Returns:
-            _type_: _description_
+            str: the extracted ipa_string value.
         """        
-        
         ipa_string = None
-        extracted_text = None
-        pattern_span = re.compile(r'<span[^>]*>(.*?)</span>')
-        pattern_brackets = re.compile(r'\[(.*?)\]')
         
         if raw_ipa_obj == None or language == None:
             return ipa_string
         
-        if language == "English":
-            matches = pattern_span.findall(raw_ipa_obj)
-            
-            for match in matches:
-                clean_match = re.sub(r'<[^>]*>', '', match)
-                extracted_text += clean_match
-
-            ipa_string = extracted_text.strip()
-        
-        else:
+        if language != "English":
+            pattern_brackets = re.compile(r'\[(.*?)\]')
             match = pattern_brackets.search(raw_ipa_obj)
-            
+
             if match:
                 extracted_text = match.group(1)
                 cleaned_text = extracted_text.replace('<span class="wrap"> </span>', ' ')
                 ipa_string = cleaned_text
-            
             else:
+                pattern_span = re.compile(r'<span[^>]*>(.*?)</span>')
                 matches = pattern_span.findall(raw_ipa_obj)
                 span_texts = [match for match in matches if 'title' not in match]
 
                 if span_texts:
                     span_text = ''.join(span_texts)
                     ipa_string = span_text
-    
+                else:
+                    print("No nested ipa_string found with the present regular expression rules.")
+            return ipa_string
+
+        if language == "English":
+            pattern_span = re.compile(r'<span[^>]*>(.*?)</span>')
+            matches = pattern_span.findall(raw_ipa_obj)
+
+            extracted_text = ''
+            for match in matches:
+                clean_match = re.sub(r'<[^>]*>', '', match)
+                extracted_text += clean_match
+
+            ipa_string = extracted_text.strip()
+            return ipa_string
+
         return ipa_string
+        
+        # ipa_string = None
+        # extracted_text = None
+        # pattern_span = re.compile(r'<span[^>]*>(.*?)</span>')
+        # pattern_brackets = re.compile(r'\[(.*?)\]')
+        
+        # if raw_ipa_obj == None or language == None:
+        #     return ipa_string
+        
+        # if language == "English":
+        #     matches = pattern_span.findall(raw_ipa_obj)
+            
+        #     for match in matches:
+        #         clean_match = re.sub(r'<[^>]*>', '', match)
+        #         extracted_text += clean_match
+
+        #     ipa_string = extracted_text.strip()
+        
+        # else:
+        #     match = pattern_brackets.search(raw_ipa_obj)
+            
+        #     if match:
+        #         extracted_text = match.group(1)
+        #         cleaned_text = extracted_text.replace('<span class="wrap"> </span>', ' ')
+        #         ipa_string = cleaned_text
+            
+        #     else:
+        #         matches = pattern_span.findall(raw_ipa_obj)
+        #         span_texts = [match for match in matches if 'title' not in match]
+
+        #         if span_texts:
+        #             span_text = ''.join(span_texts)
+        #             ipa_string = span_text
+    
+        # return ipa_string
     
     
     

@@ -1,3 +1,7 @@
+from ipa_scraper import IPAScraper
+from data_handler import DataHandler
+from notifications import Notifications
+
 import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), 'ipapy-0.0.9')))
@@ -14,14 +18,133 @@ class IPAProcessor:
     MALE = "v"
     FEMALE = "s"
     
-    
-    def _get_language_ipa(language):
+    def transform_ipa_to_lv(self, ipa_obj):
+        """
+        Transforms the ipa_obj>ipa_str into its appropriate
+        Latvian language characters.
+
+        Args:
+            ipa_obj (JSON): contains the data relating to the
+                        user provided proper noun.
+
+        Returns:
+            JSON: the ipa_obj with modified fields.
+        """        
+        notifications = Notifications()
+        
+        notifications.output_transforming_ipa_to_lv()
+        
+        language_ipa_arr = self._get_language_ipa_arr(ipa_obj["language"])
+        ipa_chars = IPAString(unicode_string=ipa_obj["ipa_str"], ignore=True)
+        isAdded = False
+        processed_chars = []
+        
+        print(language_ipa_arr)
+        for c in ipa_chars:
+            isAdded = False
+            for item in language_ipa_arr:
+                for key, value in item.items():
+                    if key != ":":
+                        char = UNICODE_TO_IPA[u"{0}".format(key)]
+                    if char == c:
+                        processed_chars.append(value)
+                        isAdded = True
+                        break
+                    if c.is_equivalent("long suprasegmental"):
+                        processed_chars.append(":")
+                        isAdded = True
+                        break
+                    if c.is_equivalent("word-break suprasegmental"):
+                        processed_chars.append(" ")
+                        isAdded = True
+                        break
+                if isAdded == True:
+                    break
+                        
+        print(processed_chars)
+        print(ipa_chars, type(ipa_chars))
+        
+        ipa_obj["raw_ipa_to_lv"] = ''.join(processed_chars)
+        
+        
+        #TODO post process the "raw_ipa_to_lv" and place that into "processed_ipa_to_lv"
+        
+        return ipa_obj
+        
+        
+    def _process_ipa_string_chars(self, language, ipa_chars):
+        print()
+        
+    def _post_process_ipa_to_lv():
         print()
     
-    
-    
-    
-    
+    def _convert_ipa_str_to_array(self, initial_ipa_string):
+        """
+        Converts ipa string into an appropriate
+        array of appropriate ipa characters.
+
+        Args:
+            initial_ipa_string (str): the initial ipa string that was
+                                    identified from the user inputted 
+                                    proper noun.
+        Returns:
+            str: _description_
+        """        
+        
+        chars = IPAString(unicode_string="")
+        ipa_string = IPAString(unicode_string=initial_ipa_string, ignore=True)
+        for c in ipa_string:
+            chars.append(c)
+            
+        # TODO does this actually turn into an array, @paddlebear? 
+        return chars
+        
+    def _get_language_ipa_arr(self, language):
+        """
+        Returns a specific languages ipa json file data
+        in a list format for parsing.
+
+        Args:
+            language (str): the language, for the user provided
+                        proper nouns ipa_string.
+
+
+        Returns:
+            _type_: _description_
+        """        
+        
+        scraper = IPAScraper()
+        data_handler = DataHandler()
+        ipa_transliteration_arr = []
+        
+        if language == scraper.ACCEPTED_LANGUAGES[0]:
+            print(data_handler.IPA_FILE_KEYS[0])
+            ipa_transliteration_arr = data_handler.get_ipa_json_file(data_handler.IPA_FILE_KEYS[0])
+            
+        elif language == scraper.ACCEPTED_LANGUAGES[1]:
+            print(data_handler.IPA_FILE_KEYS[1])
+            ipa_transliteration_arr = data_handler.get_ipa_json_file(data_handler.IPA_FILE_KEYS[1])
+        
+        elif language == scraper.ACCEPTED_LANGUAGES[2]:
+            print(data_handler.IPA_FILE_KEYS[2])
+            ipa_transliteration_arr = data_handler.get_ipa_json_file(data_handler.IPA_FILE_KEYS[2])
+            
+        elif language == scraper.ACCEPTED_LANGUAGES[3]:
+            print(data_handler.IPA_FILE_KEYS[3])
+            ipa_transliteration_arr = data_handler.get_ipa_json_file(data_handler.IPA_FILE_KEYS[3])
+        
+        elif language == scraper.ACCEPTED_LANGUAGES[4]:
+            print(data_handler.IPA_FILE_KEYS[4])
+            ipa_transliteration_arr = data_handler.get_ipa_json_file(data_handler.IPA_FILE_KEYS[4])
+
+        elif language == scraper.ACCEPTED_LANGUAGES[5]:
+            print(data_handler.IPA_FILE_KEYS[5])
+            ipa_transliteration_arr = data_handler.get_ipa_json_file(data_handler.IPA_FILE_KEYS[5])
+        
+        if len(ipa_transliteration_arr) == 0:
+            return None
+
+        return ipa_transliteration_arr
     
     
     
@@ -865,8 +988,7 @@ class IPAProcessor:
                         
         print(processchars)
         print(ipachars, type(ipachars))
-            
-    
+
     
     def lt_to_lv(self, chars):
         # data = {
