@@ -220,7 +220,65 @@ class IPAProcessor:
     
     
     def post_ch_to_lv(self, ipa_obj):
-        print("hello world")
+        array = ipa_obj["raw_ipa_to_lv"]
+        gender = ipa_obj["gender"]
+        noun_class = ipa_obj["noun_class"]
+        print("testing")
+        print(array)
+        i = 0
+        while i < len(array): ## STRING CLEANUP ACCORDING TO RULES
+            print(array[i])
+            if array[i] == "^":
+                if array[i-1] == "dz":
+                    array[i-1] = "c"
+                if array[i-1] == "dž":
+                    array[i-1] = "č"
+                if array[i-1] == "dzj":
+                    array[i-1] = "cj"
+                del array[i]
+                i = i-1
+            if array[i] == "j":
+                if array[i-1] == "l" or array[i-1] == "n" or array[i-1] == "cj" or array[i-1] == "dzj":
+                    if array[i-1] == "l":
+                        array[i-1] = "ļ"
+                    if array[i-1] == "n":
+                        array[i-1] = "ņ"
+                    del array[i]
+                    i = i-1
+            if array[i] == " ":
+                if i-2 >= 0:
+                    if (array[i-2] == "a" or array[i-2] == "e" or array[i-2] == "o" or array[i-2] == "u") and array[i-1] == "i":
+                        del array[i-1]
+                        i = i-1
+            i = i+1
+        
+        i = 0
+        while i < len(array): ## NAME ENDINGS
+            print(array[i])
+            if array[i] == ".":
+                del array[i]
+                i = i-1
+            if array[i] == " ":
+                if (array[i-1] == "a" or array[i-1] == "e" or array[i-1] == "o") and array[i-2] != "a" and array[i-2] != "e" and array[i-2] != "i" and array[i-2] != "u" and array[i-2] != "o":
+                    if gender == UserInput.MALE:
+                        array.insert(i, "js")
+                        i = i+1
+                    else:
+                        array.insert(i, "ja")
+                        i = i+1
+                elif array[i-1] != "u":
+                    if gender == UserInput.MALE:
+                        if array[i-1] != "i":
+                            array.insert(i, "s")
+                            i = i+1
+                    else:
+                        array.insert(i, "a")
+                        i = i+1
+                    
+            i = i+1
+            
+        ipa_obj["processed_ipa_to_lv"] = array
+        
     
     def post_de_to_lv(self, ipa_obj):
         array = ipa_obj["raw_ipa_to_lv"]
