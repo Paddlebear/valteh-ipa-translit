@@ -9,6 +9,7 @@ class DataHandler:
     """
     
     IPA_JSON_DIRECTORY_PATH = "ipa_lang_maps\\modified_maps"
+    TEST_JSON_DIRECTORY_PATH = "test_data"
     IPA_FILE_KEYS = [
         "ch_lv.json",
         "fr_lv.json",
@@ -17,6 +18,14 @@ class DataHandler:
         "jp_lv.json",
         "eng_lv.json",
         ]    
+    TEST_FILE_KEYS = [
+        # "zh.json",
+        # "fr.json",
+        "de.json",
+        # "ua.json",
+        # "jp.json",
+        # "eng.json",
+        ]
 
     def get_ipa_json_file(self, ipa_file_key):
         """
@@ -38,7 +47,7 @@ class DataHandler:
 
         return self._convert_json_keys_to_array(json_data)   
     
-    def get_test_json_file(self, language):
+    def get_test_json_file(self, test_file_key):
         """
         Reads in the test data and and returns it.
         
@@ -47,7 +56,7 @@ class DataHandler:
         """        
         
         # TODO read in one of the test data and return it as an array
-        json_file_path = Path(self.IPA_JSON_DIRECTORY_PATH) / ipa_file_key
+        json_file_path = Path(self.TEST_JSON_DIRECTORY_PATH) / test_file_key
         json_data = None
 
         # Read the JSON file
@@ -57,6 +66,8 @@ class DataHandler:
 
         if json_data == None:
             return None
+        
+        return json_data
         
     def _convert_json_keys_to_array(self, json_data):
         """

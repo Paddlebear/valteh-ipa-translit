@@ -1,11 +1,53 @@
 {
-    "person_male": [
-        "full name"
-    ],
-    "person_female": [
-        "full name"
-    ],
-    "city": [
-        
-    ]
+    "city": {
+        "description": "City Chinese",
+        "noun_class": "pi",
+        "gender": "s",
+        "raw_proper_noun_arr": [
+            "beijing",
+            "shanghai",
+            "guangzhou",
+            "shenzhen",
+            "chengdu",
+            "chongqing",
+            "wuhan",
+            "xian",
+            "hangzhou",
+            "nanjing"
+        ]
+    },
+    "person_male": {
+        "description": "Male person Chinese",
+        "noun_class": "pv",
+        "gender": "v",
+        "raw_proper_noun_arr": [
+            "jackie chan",
+            "jet li",
+            "xi jinping",
+            "mao zedong",
+            "deng xiaoping",
+            "Sun Yang",
+            "Yang Chen-Ning",
+            "Mo Yan",
+            "Roger Y. Tsien",
+            ""
+        ]
+    },
+    "person_female": {
+        "description": "Female person Chinese",
+        "noun_class": "pv",
+        "gender": "s",
+        "raw_proper_noun_arr": [
+            "liu yifei",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "" 
+        ]
+    }
 }

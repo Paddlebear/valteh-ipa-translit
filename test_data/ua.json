@@ -1,11 +1,53 @@
 {
-    "person_male": [
-        "full name"
-    ],
-    "person_female": [
-        "full name"
-    ],
-    "city": [
-        
-    ]
+    "city": {
+        "description": "City Ukrainian",
+        "noun_class": "pi",
+        "gender": "s",
+        "raw_proper_noun_arr": [
+            "kyiv",
+            "lviv",
+            "odessa",
+            "dnipro",
+            "kharkiv",
+            "zaporizhia",
+            "vinnytsia",
+            "kherson",
+            "chernivtsi",
+            "ivano-frankivsk"
+        ]
+    },
+    "person_male": {
+        "description": "Male person Ukrainian",
+        "noun_class": "pv",
+        "gender": "v",
+        "raw_proper_noun_arr": [
+            "volodymyr zelensky",
+            "arseniy yatsenyuk",
+            "serhiy rebrov",
+            "oleh sentsov",
+            "vasyl lomachenko",
+            "oleksandr usyk",
+            "bohdan stupka",
+            "yuriy andrukhovych",
+            "mykola hrynko",
+            "ivan franko"
+        ]
+    },
+    "person_female": {
+        "description": "Female person Ukrainian",
+        "noun_class": "pv",
+        "gender": "s",
+        "raw_proper_noun_arr": [
+            "milla jovovich",
+            "tina karol",
+            "jamala",
+            "yulia tymoshenko",
+            "olga kurylenko",
+            "mariya yaremchuk",
+            "natalie wood",
+            "ruslana",
+            "lyudmyla monastyrska",
+            "iryna bilyk"
+        ]
+    }
 }

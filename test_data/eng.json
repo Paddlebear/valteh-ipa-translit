@@ -1,26 +1,54 @@
 {
     "city": {
+        "description": "City English",
         "noun_class": "pi",
         "gender": "s",
         "raw_proper_noun_arr": [
-            "dublin"
+            "dublin",
+            "los angeles",
+            "chicago",
+            "manchester",
+            "birmingham",
+            "bristol",
+            "san francisco",
+            "boston",
+            "seattle",
+            "edinburgh",
+            "glasgow"
         ]
     },
     "person_male": {
+        "description": "Male person English",
         "noun_class": "pv",
         "gender": "v",
         "raw_proper_noun_arr": [
-            
+            "rob schneider",
+            "barack obama",
+            "david beckham",
+            "leonardo dicaprio",
+            "tom hanks",
+            "johnny depp",
+            "brad pitt",
+            "morgan freeman",
+            "al pacino",
+            "michael caine"
         ]
     },
     "person_female": {
+        "description": "Female person English",
         "noun_class": "pv",
         "gender": "s",
         "raw_proper_noun_arr": [
             "angelina jolie",
             "scarlett johansson",
             "adele",
-            "rihanna"
+            "rihanna",
+            "margaret thatcher",
+            "kate winslet",
+            "oprah winfrey",
+            "anne hathaway",
+            "julia roberts",
+            "j.k. rowling"
         ]
     }
 }

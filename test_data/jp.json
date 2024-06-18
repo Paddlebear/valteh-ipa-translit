@@ -1,11 +1,53 @@
 {
-    "person_male": [
-        "full name"
-    ],
-    "person_female": [
-        "full name"
-    ],
-    "city": [
-        
-    ]
+    "city": {
+        "description": "City Japanese",
+        "noun_class": "pi",
+        "gender": "s",
+        "raw_proper_noun_arr": [
+            "tokyo",
+            "osaka",
+            "kyoto",
+            "yokohama",
+            "nagoya",
+            "sapporo",
+            "kobe",
+            "fukuoka",
+            "hiroshima",
+            "sendai"
+        ]
+    },
+    "person_male": {
+        "description": "Male person Japanese",
+        "noun_class": "pv",
+        "gender": "v",
+        "raw_proper_noun_arr": [
+            "ken watanabe",
+            "takeshi kitano",
+            "tadanobu asano",
+            "masaharu fukuyama",
+            "takashi miike",
+            "takuya kimura",
+            "hiroshi abe",
+            "jun matsumoto",
+            "shun oguri",
+            "ryo nishikido"
+        ]
+    },
+    "person_female": {
+        "description": "Female person Japanese",
+        "noun_class": "pv",
+        "gender": "s",
+        "raw_proper_noun_arr": [
+            "rinko kikuchi",
+            "yu aoi",
+            "aki maeda",
+            "keiko kitagawa",
+            "mao inoue",
+            "yui aragaki",
+            "suzu hirose",
+            "satomi ishihara",
+            "kasumi arimura",
+            "sayaka yamaguchi"
+        ]
+    }
 }

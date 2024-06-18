@@ -1,11 +1,53 @@
 {
-    "person_male": [
-        "full name"
-    ],
-    "person_female": [
-        "full name"
-    ],
-    "city": [
-        
-    ]
+    "city": {
+        "description": "City French",
+        "noun_class": "pi",
+        "gender": "s",
+        "raw_proper_noun_arr": [
+            "paris",
+            "marseille",
+            "lyon",
+            "toulouse",
+            "nice",
+            "nantes",
+            "strasbourg",
+            "montpellier",
+            "bordeaux",
+            "lille"
+        ]
+    },
+    "person_male": {
+        "description": "Male person French",
+        "noun_class": "pv",
+        "gender": "v",
+        "raw_proper_noun_arr": [
+            "vincent cassel",
+            "jean reno",
+            "gerard depardieu",
+            "omar sy",
+            "jean dujardin",
+            "louis garrel",
+            "alain delon",
+            "daniel auteuil",
+            "julien dore",
+            "gaspar ulliel"
+        ]
+    },
+    "person_female": {
+        "description": "Female person French",
+        "noun_class": "pv",
+        "gender": "s",
+        "raw_proper_noun_arr": [
+            "marion cotillard",
+            "audrey tautou",
+            "isabelle huppert",
+            "juliette binoche",
+            "lea seydoux",
+            "brigitte bardot",
+            "catherine deneuve",
+            "eva green",
+            "laetitia casta",
+            "vanessa paradis"
+        ]
+    }
 }

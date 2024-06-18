@@ -1,11 +1,45 @@
 {
-    "person_male": [
-        "full name"
-    ],
-    "person_female": [
-        "full name"
-    ],
-    "city": [
-        
-    ]
+    "city": {
+        "description": "City German",
+        "noun_class": "pi",
+        "gender": "s",
+        "raw_proper_noun_arr": [
+
+        ]
+    },
+    "person_male": {
+        "description": "Male person German",
+        "noun_class": "pv",
+        "gender": "v",
+        "raw_proper_noun_arr": [
+            "matthias schoenaerts",
+            "Michael_Schumacher",
+            "Ludwig_Mies_van_der_Rohe",
+            "Gottfried_Semper",
+            "Albert_Speer",
+            "Joseph_Beuys",
+            "Gottfried_Böhm",
+            "Lucas_Cranach_the_Elder",
+            "Otto_Dix",
+            "Leon_Draisaitl"
+            
+        ]
+    },
+    "person_female": {
+        "description": "Female person German",
+        "noun_class": "pv",
+        "gender": "s",
+        "raw_proper_noun_arr": [
+            "diane kruger",
+            "Hannah_Arendt",
+            "Helene_Böhlau",
+            "Helene_Christaller",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+        ]
+    }
 }
