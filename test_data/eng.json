@@ -1,11 +1,26 @@
 {
-    "person_male": [
-        "full name"
-    ],
-    "person_female": [
-        "full name"
-    ],
-    "city": [
-        
-    ]
+    "city": {
+        "noun_class": "pi",
+        "gender": "s",
+        "raw_proper_noun_arr": [
+            "dublin"
+        ]
+    },
+    "person_male": {
+        "noun_class": "pv",
+        "gender": "v",
+        "raw_proper_noun_arr": [
+            
+        ]
+    },
+    "person_female": {
+        "noun_class": "pv",
+        "gender": "s",
+        "raw_proper_noun_arr": [
+            "angelina jolie",
+            "scarlett johansson",
+            "adele",
+            "rihanna"
+        ]
+    }
 }
