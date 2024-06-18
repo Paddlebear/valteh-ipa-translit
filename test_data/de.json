@@ -4,7 +4,16 @@
         "noun_class": "pi",
         "gender": "s",
         "raw_proper_noun_arr": [
-
+            "berlin",
+            "hamburg",
+            "munich",
+            "cologne",
+            "frankfurt",
+            "stuttgart",
+            "düsseldorf",
+            "dortmund",
+            "leipzig",
+            "bremen"
         ]
     },
     "person_male": {
@@ -34,12 +43,12 @@
             "Hannah_Arendt",
             "Helene_Böhlau",
             "Helene_Christaller",
-            "",
-            "",
-            "",
-            "",
-            "",
-            ""
+            "Hedwig_Courths-Mahler",
+            "Doris_Dörrie",
+            "Annette_von_Droste-Hülshoff",
+            "Jenny_Erpenbeck",
+            "Eva_Figes",
+            "Marieluise_Fleißer"
         ]
     }
 }
