@@ -223,10 +223,236 @@ class IPAProcessor:
         print("hello world")
     
     def post_de_to_lv(self, ipa_obj):
-        print("hello world")
+        array = ipa_obj["raw_ipa_to_lv"]
+        gender = ipa_obj["gender"]
+        noun_class = ipa_obj["noun_class"]
+        print("testing")
+        print(array)
+        ## STRING CLEANUP ACCORDING TO RULES
+        i = 0
+        while i < len(array):
+            if array[i] == "dž" and array[i+1] == " ":
+                array[i] = "č"
+            if array[i] == "j":
+                print("this is before j:", array[i-1], array[i])
+                if i != 0 and array[i-1] == "n":
+                    if array[i+1] == "i" or array[i+1] == "a" or array[i+1] == "o" or array[i+1] == "u" or array[i+1] == "e" or array[i+1] == "j" or array[i+1] == " ":
+                        array[i-1] = "ņ"
+                elif i != 0 and array[i-1] == "l":
+                    if array[i+1] == "i" or array[i+1] == "a" or array[i+1] == "o" or array[i+1] == "u" or array[i+1] == "e" or array[i+1] == "j" or array[i+1] == "v" or array[i+1]==" ":
+                        array[i-1] = "ļ"
+                
+                if (i != 0 and array[i-1] != "i" and array[i-1] != " " and array[i-1] != "u" and array[i-1] != "o" and array[i-1] != "e" and array[i-1] != "a" and array[i-1] != "v" and array[i-1] != "t"):
+                    del array[i]
+                    
+            if i != 0 and (array[i] == "n" or array[i] == "m"):
+                if array[i-1] != "a" and array[i-1] != "e" and array[i-1] != "i" and array[i-1] != "o" and array[i-1] != "u" and array[i-1] != "l" and array[i-1] != "n" and array[i-1] != "m" and array[i-1] != " " and array[i-1] != "t":
+                    array.insert(i, "e")
+                    i = i+1
+            if i != 0 and (array[i] == "l"):
+                if array[i-1] != "a" and array[i-1] != "e" and array[i-1] != "i" and array[i-1] != "o" and array[i-1] != "u" and array[i-1] != "l" and array[i-1] != "n" and array[i-1] != "m" and array[i-1] != " " and array[i-1] != "f":
+                    array.insert(i, "e")
+                    i = i+1
+            if array[i] == ":":
+                if array[i-1] == "n":
+                    array[i] = array[i-1]
+            if array[i] == "er":
+                if array[i-1] == "l":
+                    array.insert(i, "l")
+                    i = i+1
+            if array[i] == ":":
+                if array[i+1] != "i" and array[i+1] != "e" and array[i+1] != "a" and array[i+1] != "u" and array[i+1] != "o":
+                    if array[i-1] == "a":
+                        array[i-1] = "ā"
+                    if array[i-1] == "e":
+                        array[i-1] = "ē"
+                    if array[i-1] == "i":
+                        array[i-1] = "ī"
+                    if array[i-1] == "u":
+                        array[i-1] = "ū"
+                if array[i+1] == "er":
+                    array[i+1] = "r"
+                del array[i]
+            if (array[i] == ":" and gender == UserInput.FEMALE):
+                if array[i-1] == "č" or array[i-1] == "š" or array[i-1] == "ž":
+                    array[i] = "j"
+            if array[i] == "t" and array[i+1] == "v":
+                array[i] = "d"
+            if array[i] == " ":
+                if array[i-1] == "k":
+                    if array[i-2] != "a" and array[i-2] != "e" and array[i-2] != "i" and array[i-2] != "o" and array[i-2] != "u":
+                        array[i-1] = "g"
+                if array[i-1] == "t":
+                    if array[i-2] != "r" and array[i-2] != "s":
+                        array[i-1] = "d"
+                if array[i-1] == "h" and (array[i-2] == "i" or array[i-2] == "e" or array[i-2] == "a" or array[i-2] == "u" or array[i-2] == "o") and array[i-3] != "r":
+                    array[i-1] = "g"
+                if array[i-2] == "a" and array[i-1] == "r":
+                    array[i-2] = "e"
+            if array[i] == " " and i+1 < len(array) and noun_class == UserInput.PI:
+                del array[i]
+            i = i+1
+        ## NAME ENDINGS
+        
+        i = 0
+        while i < len(array):
+            if array[i] == " ":
+                if (array[i-3] == "n" or array[i-3] == "l" or array[i-3] == "ņ" or array[i-3] == "ļ" or array[i-3] == "g") and array[i-2] == "i" and array[i-1] == "j":
+                    if(gender == UserInput.MALE):
+                        array.insert(i, "s")
+                    else: array.insert(i,"a")
+                    i = i+1
+                elif array[i-2] == "i" and array[i-1] == "j":
+                    if(gender == UserInput.MALE):
+                        array[i-1] = "s"
+                    elif (gender == UserInput.FEMALE): 
+                        print("i-1:", array[i-1])
+                        print("to delete", array[i-2])
+                        array[i-1] = "a"
+                        del array[i-2]
+                        # i = i-1
+                    i = i+1
+                else:
+                    if (array[i-2] == "i" or array[i-2] == "e" or array[i-2] == "a" or array[i-2] == "o") and array[i-1] == "a":
+                        array.insert(i-1, "j")
+                        i = i+1
+                    if (gender == UserInput.MALE):
+                        if (array[i-1] != "o" and array[i-1] != "e"):
+                            array.insert(i, "s")
+                            i = i+1
+                    else: 
+                        if array[i-2] == "a" and array[i-1] == "u":
+                            array.insert(i,"a")
+                            i = i+1
+                        if array[i-1] != "a" and array[i-1] != "e" and array[i-1] != "o" and array[i-1] != "i" and array[i-1] != "ē" and array[i-1] != "u" and array[i-1] != "ū":
+                            if array[i-1] == "l" or array[i-1] == "n" or array[i-1] == "t" or array[i-1] == "d" or array[i-1] == "er" or array[i-1] == "r":
+                                array.insert(i, "e")
+                            else: array.insert(i,"a")
+                            i = i+1
+                        if array[i-1] == "i":
+                            array.insert(i, "ja")
+                            i = i+1
+            if i != 0 and array[i] == "er" and (array[i-1] == "i" or array[i-1] == "e" or array[i-1] == "a" or array[i-1] == "u" or array[i-1] == "o"):
+                    array[i] = "r"
+            if i != 0 and array[i] == "e" and array[i-1] =="a":
+                    array[i] = "i"                
+            i = i+1
+        ipa_obj["processed_ipa_to_lv"] = array
         
     def post_eng_to_lv(self, ipa_obj):
-        print("hello world")
+        array = ipa_obj["raw_ipa_to_lv"]
+        gender = ipa_obj["gender"]
+        noun_class = ipa_obj["noun_class"]
+        print("testing")
+        print(array)
+        ## STRING CLEANUP ACCORDING TO RULES
+        i = 0
+        while i < len(array):
+            print(array[i])
+            if array[0] == "o" and array[1] == "u":
+                del array[1]
+                i = i-1
+            if array[i] == "dž" and array[i+1] == " ":
+                array[i] = "č"
+            if array[i] == "j":
+                print("this is before j:", array[i-1], array[i])
+                if i != 0 and array[i-1] == "n":
+                    if array[i+1] == "i" or array[i+1] == "a" or array[i+1] == "o" or array[i+1] == "u" or array[i+1] == "e" or array[i+1] == "j" or array[i+1] == " ":
+                        array[i-1] = "ņ"
+                elif i != 0 and array[i-1] == "l":
+                    if array[i+1] == "i" or array[i+1] == "a" or array[i+1] == "o" or array[i+1] == "u" or array[i+1] == "e" or array[i+1] == "j" or array[i+1] == "v" or array[i+1]==" ":
+                        array[i-1] = "ļ"
+                
+                if (i != 0 and array[i-1] != "i" and array[i-1] != " " and array[i-1] != "u" and array[i-1] != "o" and array[i-1] != "e" and array[i-1] != "a" and array[i-1] != "v" and array[i-1] != "t"):
+                    del array[i]
+                    
+            if array[i] == ":":
+                if array[i-1] == "n":
+                    array[i] = array[i-1]
+            if array[i] == "er":
+                if array[i-1] == "l":
+                    array.insert(i, "l")
+                    i = i+1
+            if array[i] == "i" and array[i+1] == "e" and array[i+2] == "i":
+                del array[i+2]
+            if array[i] == ":":
+                if array[i+1] != "i" and array[i+1] != "e" and array[i+1] != "a" and array[i+1] != "u" and array[i+1] != "o":
+                    if array[i-1] == "a":
+                        array[i-1] = "ā"
+                if array[i+1] == "er":
+                    array[i+1] = "r"
+                del array[i]
+                i = i-1
+            if (array[i] == ":" and gender == UserInput.FEMALE):
+                if array[i-1] == "č" or array[i-1] == "š" or array[i-1] == "ž":
+                    array[i] = "j"
+            if array[i] == " ":
+                if array[i-2] == "a" and (array[i-1] == "r" or array[i-1] == "m" or array[i-1] == "n" or array[i-1] == "t"):
+                    array[i-2] = "e"
+                if array[i-2] == "a" and (array[i-1] == "l"):
+                    array[i-2] = "o"
+                if i+1 < len(array):
+                    if array[i+1] == "o" and array[i+2] == "u":
+                        del array[i+2]
+            if array[i] == " " and i+1 < len(array) and noun_class == UserInput.PI:
+                del array[i]
+            i = i+1
+            
+        print("ok")
+        ## NAME ENDINGS
+        
+        i = 0
+        while i < len(array):
+            if array[i] == " ":
+                if (array[i-3] == "n" or array[i-3] == "l" or array[i-3] == "ņ" or array[i-3] == "ļ" or array[i-3] == "g") and array[i-2] == "i" and array[i-1] == "j":
+                    if(gender == UserInput.MALE):
+                        array.insert(i, "s")
+                    else: array.insert(i,"a")
+                    i = i+1
+                elif array[i-2] == "i" and array[i-1] == "j":
+                    if(gender == UserInput.MALE):
+                        array[i-1] = "s"
+                    elif (gender == UserInput.FEMALE): 
+                        print("i-1:", array[i-1])
+                        print("to delete", array[i-2])
+                        array[i-1] = "a"
+                        del array[i-2]
+                        # i = i-1
+                    i = i+1
+                elif array[i-2] == "o" and array[i-1] == "u":
+                    del array[i-1]
+                    i = i-1
+                else:
+                    if (array[i-2] == "i" or array[i-2] == "e" or array[i-2] == "a" or array[i-2] == "o") and array[i-1] == "a":
+                        array.insert(i-1, "j")
+                        i = i+1
+                    if (gender == UserInput.MALE):
+                        if (array[i-1] != "a" and array[i-1] != "e" and array[i-1] != "o" and array[i-1] != "i" and array[i-1] != "ē" and array[i-1] != "u" and array[i-1] != "ū" and array[i-1] != "ā" and array[i-1] != "ī"):
+                            array.insert(i, "s")
+                            i = i+1
+                        elif (array[i-1] == "i"):
+                            array.insert(i, "js")
+                            i = i+1
+                    else: 
+                        if array[i-2] == "a" and array[i-1] == "u":
+                            array.insert(i,"a")
+                            i = i+1
+                        if array[i-1] != "a" and array[i-1] != "e" and array[i-1] != "o" and array[i-1] != "i" and array[i-1] != "ē" and array[i-1] != "u" and array[i-1] != "ū":
+                            if array[i-2] == "e" and array[i-1] == "l":
+                                array.insert(i, "e")
+                                i = i+1
+                            else:
+                                array.insert(i,"a")
+                                i = i+1
+                        if array[i-1] == "i":
+                            array.insert(i, "ja")
+                            i = i+1
+            if i != 0 and array[i] == "er" and (array[i-1] == "i" or array[i-1] == "e" or array[i-1] == "a" or array[i-1] == "u" or array[i-1] == "o"):
+                    array[i] = "r"
+            if i != 0 and array[i] == "e" and array[i-1] =="a":
+                    array[i] = "i"                
+            i = i+1
+        ipa_obj["processed_ipa_to_lv"] = array
         
     def post_fr_to_lv(self, ipa_obj):
         array = ipa_obj["raw_ipa_to_lv"]
@@ -256,17 +482,14 @@ class IPAProcessor:
                     array[i] = "j"
             if array[i] == ":":
                 if array[i-1] == "a":
-                    array[i-1] == "ā"
-                    del array[i]
+                    array[i-1] = "ā"
                 if array[i-1] == "e":
-                    array[i-1] == "ē"
-                    del array[i]
+                    array[i-1] = "ē"
                 if array[i-1] == "i":
-                    array[i-1] == "ī"
-                    del array[i]
+                    array[i-1] = "ī"
                 if array[i-1] == "u":
-                    array[i-1] == "ū"
-                    del array[i]
+                    array[i-1] = "ū"
+                del array[i]
             if (array[i] == " "):
                 if (array[i-1] == "l" and gender == UserInput.FEMALE):
                     array.insert(i-1, array[i-1])
