@@ -1,35 +1,60 @@
-# valteh-ipa-translit
-Valodu tehnoloģijas - praktiskais darbs "Svešvalodas-IPA-latviešu transliterācija"
-
 ```
  ██ ██████   █████      ████████ ██████   █████  ███    ██ ███████ ██      ██ ████████ 
  ██ ██   ██ ██   ██        ██    ██   ██ ██   ██ ████   ██ ██      ██      ██    ██    
  ██ ██████  ███████ █████  ██    ██████  ███████ ██ ██  ██ ███████ ██      ██    ██    
  ██ ██      ██   ██        ██    ██   ██ ██   ██ ██  ██ ██      ██ ██      ██    ██    
  ██ ██      ██   ██        ██    ██   ██ ██   ██ ██   ████ ███████ ███████ ██    ██ 
+
+Praktiskais darbs "Svešvalodas-IPA-latviešu transliterācija" LU Valodu tehnoloģijas 2024. gada kursam.
 ```
+
 
 ## Local Set Up
 
-pip install requests, beautifulsoup4, ipapy
+### Python
 
-**The current release for ipapy is broken on a Python release no later than 3.12. To fix this, the library files ipastring.py and mapper.py need to be edited with the following:
-from collections.abc import MutableSequence //MutableMapper respectively
+You will need to have Python installed. The project was built using Python `3.12.3`, but any modern Python version will probably work as well.
 
-### Build
+### PIP Modules
 
-pyinstaller --onefile --paths=./ipapy-0.0.9 main.py
+The app uses web scraping to retrieve the IPA string from Wikipedia articles, and as such needs to both web scrape the the page and then find the IPA string with regex.
 
-## You can also choose to use the releases
+Run:
+- `pip install requests`,
+- `pip install beautifulsoup4`.
 
-You can navigate to the releases page, where you'll be able to download a Windows executable, that was created via GitHub actions.
+### [ipay0.0.9](https://github.com/pettarin/ipapy)
 
-## ipapy 0.0.9
+The current release for `ipapy` is broken on a Python release no later than 3.12., and so cannot be installed and used through pip - it should be uninstalled, to avoid any further issues related to imports.
 
-The project used the ipapy library version 0.0.9 as part of the project's code, since the pip available version has a bug, that needed to be fixed.
+To use `ipapy`, the library files `ipastring.py` and `mapper.py` need to be edited with the following: `from collections.abc import MutableSequence //MutableMapper` respectively.
 
-The library is under MIT. We give credit for the provided code to its original creators: pettarin and Bram Vanroy on GitHub.
+Alternatively follow this [issue](https://github.com/pettarin/ipapy/pull/6/files).
 
-## Why not use hfst?
+We use `ipapy0.0.9` source code as part of the project's code - the library is under MIT license and we give full credit for the libraries code to its original creators: [Alberto Pettarin](https://github.com/pettarin)  and [Bram Vanroy](https://github.com/BramVanroy).
 
-The project was made using windows machines, and the hfst and hfst_dev are only runnable in UNIX systems. Since our system does little in terms of morphological analysis, hfst was decided as unnecessary, and our solution can be implemented through simple json mapping.
+## How to run?
+
+In your terminal you can either run the main program, via:
+- `python __main__.py`
+
+Alternatively you can run a DEMO for the currently supported languages using the test data in the `test_data` directory, via
+- `python run_test_data_demo.py`
+
+## How does it work?
+
+The program takes in the user inputter `proper noun`, `noun_class` and `gender`, and from that 
+
+The input should be in English, for example:
+- timothee chalamet,
+- angela merkel
+- riga
+- tokyo
+
+The inputted proper noun will be sanitized, and used as the end part to the url leading to a Wikipedia article detailing the person or city. 
+
+The article is then scraped for an IPA string, based on an accepted language list, with a deliberate oder: `["Mandarin", "French", "Ukrainian", "Japanese", "Standard German", "English"]`. If no IPA is found, the program ends its iteration.
+
+If an IPA string is found, it is then transformed to the Latvian language using the ipa maps in the `ipa_land_maps` directory and postprocessing.
+
+Note: *The project was made using windows machines, but was intended to utilize an FST through the `hfst` and `hfst_dev` modules, but currently they are only runnable on UNIX systems. Since our system does little in terms of morphological analysis, `hfst` was decided as unnecessary, and our solution was implemented through simple JSON mapping.*
