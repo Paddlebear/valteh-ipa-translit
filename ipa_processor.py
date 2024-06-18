@@ -88,7 +88,10 @@ class IPAProcessor:
             noun_class (_type_): _description_
             gender (_type_): _description_
             ipa_chars (_type_): _description_
-        """        
+        """ 
+        
+        
+               
         print()
         
     def _post_process_ipa_to_lv(self, language, noun_class, gender, ipa_chars):
@@ -140,6 +143,8 @@ class IPAProcessor:
         scraper = IPAScraper()
         data_handler = DataHandler()
         ipa_transliteration_arr = []
+        
+        # https://www.freecodecamp.org/news/python-switch-statement-switch-case-example/
         
         if language == scraper.ACCEPTED_LANGUAGES[0]:
             print(data_handler.IPA_FILE_KEYS[0])
