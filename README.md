@@ -57,4 +57,4 @@ The article is then scraped for an IPA string, based on an accepted language lis
 
 If an IPA string is found, it is then transformed to the Latvian language using the ipa maps in the `ipa_land_maps` directory and postprocessing.
 
-Note: *The project was made using windows machines, but was intended to utilize an FST through the `hfst` and `hfst_dev` modules, but currently they are only runnable on UNIX systems. Since our system does little in terms of morphological analysis, `hfst` was decided as unnecessary, and our solution was implemented through simple JSON mapping.*
+Note: *The project was made using Windows machines, but was intended to utilize an FST through the `hfst` and `hfst_dev` modules, but currently they are only runnable on UNIX systems. Since our system does little in terms of morphological analysis, `hfst` was decided as unnecessary, and our solution was implemented through simple JSON mapping.*

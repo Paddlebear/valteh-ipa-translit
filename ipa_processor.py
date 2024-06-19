@@ -15,11 +15,9 @@ from ipapy.ipachar import IPASuprasegmental
 from ipapy.ipastring import IPAString
 
 class IPAProcessor:
-    #* Prob not needed - if you do, import user_inputs and use the values defined there.
-    # PI = "pi"
-    # PV = "pv"
-    # MALE = "v"
-    # FEMALE = "s"
+    """
+    Handles IPA processing.
+    """    
     
     def transform_ipa_to_lv(self, ipa_obj):
         """
@@ -40,11 +38,14 @@ class IPAProcessor:
         
         language_ipa_arr = self._get_language_ipa_arr(ipa_obj["language"])
         
-        # TODO if language_ipa_arr == none, return error.
+        # Major issue, if this happens.
+        if language_ipa_arr == None:
+            return ipa_obj
         
         ipa_chars = IPAString(unicode_string=ipa_obj["ipa_str"], ignore=True)
         is_added = False
-        processed_chars = [] # array of processed chars
+        # Array of processed chars.
+        processed_chars = [] 
         
         for c in ipa_chars: ## CHAR MAPPING TO TRANSLIT MAPS
             is_added = False
@@ -87,7 +88,8 @@ class IPAProcessor:
         elif language == scraper.ACCEPTED_LANGUAGES[5]:
             result_ipa_obj = self.post_eng_to_lv(ipa_obj)
         
-        else: print("unknown error, contact developers")
+        else: 
+            print("unknown error, contact developers")
         
         return result_ipa_obj
         
@@ -156,7 +158,6 @@ class IPAProcessor:
         noun_class = ipa_obj["noun_class"]
         i = 0
         while i < len(array): ## STRING CLEANUP ACCORDING TO RULES
-            # print(array[i])
             if array[i] == "^": # aspirated consonants - the little h is replaced by ^ in the mapping
                 if array[i-1] == "dz":
                     array[i-1] = "c"
@@ -351,7 +352,6 @@ class IPAProcessor:
         ## STRING CLEANUP ACCORDING TO RULES
         i = 0
         while i < len(array):
-            # print(array[i])
             if array[0] == "o" and array[1] == "u": # ou at start -> o
                 del array[1]
                 i = i-1
@@ -414,8 +414,7 @@ class IPAProcessor:
                     if(gender == UserInput.MALE):
                         array[i-1] = "s"
                     elif (gender == UserInput.FEMALE): 
-                        # print("i-1:", array[i-1])
-                        # print("to delete", array[i-2])
+
                         array[i-1] = "a"
                         del array[i-2]
                         # i = i-1
@@ -580,7 +579,6 @@ class IPAProcessor:
         
         i = 0
         while i < len(array): ## NAME ENDINGS
-            # print(array[i])
             if array[i] == ".": #remove syllable delim
                 del array[i]
                 i = i-1
@@ -670,3 +668,4 @@ class IPAProcessor:
             i = i+1
         ipa_obj["processed_ipa_to_lv"] = "".join(array).title()
         return ipa_obj
+    
