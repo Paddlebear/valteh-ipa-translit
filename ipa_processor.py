@@ -209,7 +209,7 @@ class IPAProcessor:
                     
             i = i+1
             
-        ipa_obj["processed_ipa_to_lv"] = "".join(array)
+        ipa_obj["processed_ipa_to_lv"] = "".join(array).title()
         return ipa_obj
         
     def post_de_to_lv(self, ipa_obj):
@@ -327,7 +327,7 @@ class IPAProcessor:
             if i != 0 and array[i] == "e" and array[i-1] =="a":
                     array[i] = "i"                
             i = i+1
-        ipa_obj["processed_ipa_to_lv"] = "".join(array)
+        ipa_obj["processed_ipa_to_lv"] = "".join(array).title()
         return ipa_obj
         
     def post_eng_to_lv(self, ipa_obj):
@@ -443,7 +443,7 @@ class IPAProcessor:
             if i != 0 and array[i] == "e" and array[i-1] =="a":
                     array[i] = "i"                
             i = i+1
-        ipa_obj["processed_ipa_to_lv"] = "".join(array)
+        ipa_obj["processed_ipa_to_lv"] = "".join(array).title()
         return ipa_obj
         
     def post_fr_to_lv(self, ipa_obj):
@@ -539,7 +539,7 @@ class IPAProcessor:
                         else: array.insert(i,"a")
                         i = i+1              
             i = i+1
-        ipa_obj["processed_ipa_to_lv"] = "".join(array)
+        ipa_obj["processed_ipa_to_lv"] = "".join(array).title()
         return ipa_obj
         
     def post_jp_to_lv(self, ipa_obj):
@@ -586,7 +586,7 @@ class IPAProcessor:
                     
             i = i+1
             
-        ipa_obj["processed_ipa_to_lv"] = "".join(array)
+        ipa_obj["processed_ipa_to_lv"] = "".join(array).title()
         return ipa_obj
         
     def post_ua_to_lv(self, ipa_obj):
@@ -619,6 +619,9 @@ class IPAProcessor:
                     array[i] = "j"
             if array[i] == " " and i+1 < len(array) and noun_class == UserInput.PI:
                 del array[i]
+            if array[i] == " ":
+                if array[i-2] == "i" and array[i-1] == "g":
+                    array[i-1] = "h"
             i = i+1
         ## NAME ENDINGS
         
@@ -650,5 +653,5 @@ class IPAProcessor:
                             array.insert(i,"a")
                             i = i+1              
             i = i+1
-        ipa_obj["processed_ipa_to_lv"] = "".join(array)
+        ipa_obj["processed_ipa_to_lv"] = "".join(array).title()
         return ipa_obj
