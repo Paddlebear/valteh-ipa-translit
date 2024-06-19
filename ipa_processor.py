@@ -75,7 +75,7 @@ class IPAProcessor:
         # temp = processed_chars
         # print(processed_chars)
         ipa_obj["raw_ipa_to_lv"] = processed_chars
-        
+        # print(ipa_obj["raw_ipa_to_lv"])
         if language == scraper.ACCEPTED_LANGUAGES[0]:
             result_ipa_obj = self.post_ch_to_lv(ipa_obj)
             
@@ -152,7 +152,8 @@ class IPAProcessor:
         return ipa_transliteration_arr 
     
     def post_ch_to_lv(self, ipa_obj):
-        array = ipa_obj["raw_ipa_to_lv"]
+        # Create a copy to the raw_ipa_to_lv.
+        array = ipa_obj["raw_ipa_to_lv"][:]
         gender = ipa_obj["gender"]
         noun_class = ipa_obj["noun_class"]
         # print("testing")
@@ -213,7 +214,8 @@ class IPAProcessor:
         return ipa_obj
         
     def post_de_to_lv(self, ipa_obj):
-        array = ipa_obj["raw_ipa_to_lv"]
+        # Create a copy to the raw_ipa_to_lv.
+        array = ipa_obj["raw_ipa_to_lv"][:]
         gender = ipa_obj["gender"]
         noun_class = ipa_obj["noun_class"]
         # print("testing")
@@ -331,7 +333,8 @@ class IPAProcessor:
         return ipa_obj
         
     def post_eng_to_lv(self, ipa_obj):
-        array = ipa_obj["raw_ipa_to_lv"]
+        # Create a copy to the raw_ipa_to_lv.
+        array = ipa_obj["raw_ipa_to_lv"][:]
         gender = ipa_obj["gender"]
         noun_class = ipa_obj["noun_class"]
         # print("testing")
@@ -447,7 +450,8 @@ class IPAProcessor:
         return ipa_obj
         
     def post_fr_to_lv(self, ipa_obj):
-        array = ipa_obj["raw_ipa_to_lv"]
+        # Create a copy to the raw_ipa_to_lv.
+        array = ipa_obj["raw_ipa_to_lv"][:]
         gender = ipa_obj["gender"]
         noun_class = ipa_obj["noun_class"]
         # print("testing")
@@ -543,7 +547,8 @@ class IPAProcessor:
         return ipa_obj
         
     def post_jp_to_lv(self, ipa_obj):
-        array = ipa_obj["raw_ipa_to_lv"]
+        # Create a copy to the raw_ipa_to_lv.
+        array = ipa_obj["raw_ipa_to_lv"][:]
         gender = ipa_obj["gender"]
         noun_class = ipa_obj["noun_class"]
         # print("testing")
@@ -590,7 +595,8 @@ class IPAProcessor:
         return ipa_obj
         
     def post_ua_to_lv(self, ipa_obj):
-        array = ipa_obj["raw_ipa_to_lv"]
+        # Create a copy to the raw_ipa_to_lv.
+        array = ipa_obj["raw_ipa_to_lv"][:]
         gender = ipa_obj["gender"]
         noun_class = ipa_obj["noun_class"]
         # print("testing")

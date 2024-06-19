@@ -41,7 +41,7 @@ def main():
                             if len(ipa_obj["raw_ipa_to_lv"]) > 0: 
                                 raw_ipa_string_result = "".join(ipa_obj["raw_ipa_to_lv"])
                         # -> {raw_ipa_string_result}
-                        print(f"{item} -> {ipa_obj["ipa_str"]}  -> {ipa_string_result} : {ipa_obj["language"]}")
+                        print(f"{item} -> {ipa_obj["ipa_str"]} -> {raw_ipa_string_result}-> {ipa_string_result} : {ipa_obj["language"]}")
                         
                               
                     print("\n")
