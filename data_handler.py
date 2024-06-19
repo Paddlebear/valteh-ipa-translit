@@ -11,7 +11,7 @@ class DataHandler:
     IPA_JSON_DIRECTORY_PATH = "ipa_lang_maps\\modified_maps"
     TEST_JSON_DIRECTORY_PATH = "test_data"
     IPA_FILE_KEYS = [
-        "ch_lv.json",
+        "zh_lv.json",
         "fr_lv.json",
         "ua_lv.json",
         "jp_lv.json",
