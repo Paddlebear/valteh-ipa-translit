@@ -381,7 +381,7 @@ class IPAProcessor:
                 if array[i+1] != "i" and array[i+1] != "e" and array[i+1] != "a" and array[i+1] != "u" and array[i+1] != "o":
                     if array[i-1] == "a":
                         array[i-1] = "ā" #long vowel a and i (no other long vowel is transliterated)
-                    if array[i-1] == "i":
+                    if array[i-1] == "i" and array[i+1] != " ":
                         array[i-1] = "ī"
                 if array[i+1] == "er": #if er before vowel, er -> r
                     array[i+1] = "r"
