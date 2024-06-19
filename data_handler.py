@@ -40,7 +40,6 @@ class DataHandler:
         # Read the JSON file
         with json_file_path.open('r', encoding='utf-8') as file:
             json_data = json.load(file)
-            # print(json.dumps(json_data, indent=4))
 
         if json_data == None:
             return None
@@ -62,7 +61,6 @@ class DataHandler:
         # Read the JSON file
         with json_file_path.open('r', encoding='utf-8') as file:
             json_data = json.load(file)
-            # print(json.dumps(json_data, indent=4))
 
         if json_data == None:
             return None
