@@ -4,8 +4,6 @@ from ipa_scraper import IPAScraper
 from user_input import UserInput
 from ipa_processor import IPAProcessor
 
-# import json
-
 def main():
     """
     Executes the main part of the app,
@@ -51,6 +49,7 @@ def main():
             # If an IPA string was found in the wiki article.
             else:
                 notifications.output_delimiter()
+                # Transforms the scaped IPA string to the Latvian language.
                 notifications.output_transforming_ipa_to_lv()
                 ipa_obj = processor.transform_ipa_to_lv(ipa_obj)
                 notifications.print_ipa_obj(ipa_obj)
