@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup
 
 
 class IPAScraper:
-    ACCEPTED_LANGUAGES = ["Mandarin", "French", "Ukrainian", "Japanese", "Standard German", "English"]
+    ACCEPTED_LANGUAGES = ["Mandarin", "French", "Ukrainian", "Japanese", "Standard German", "English"] ## ORDER IS DELIBERATE. Checks all highly unrelated langs first, then German and finally English as a fallback.
     ACCEPTED_LANGUAGES_CODES = ["zh", "fr", "ua", "jp", "de", "eng"]
     WIKIPEDIA_URL_EN = "https://en.wikipedia.org/wiki/"
     HTML_PARSER = "html.parser"

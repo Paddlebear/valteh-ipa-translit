@@ -19,10 +19,10 @@ class DataHandler:
         "eng_lv.json",
         ]    
     TEST_FILE_KEYS = [
-        "zh.json",
+        #"zh.json",
         "fr.json",
         "de.json",
-         "ua.json",
+        "ua.json",
         "jp.json",
         "eng.json",
         ]
