@@ -138,10 +138,7 @@ class IPAScraper:
             if match:
                 extracted_text = match.group(1)
                 cleaned_text = extracted_text.replace('<span class="wrap"> </span>', ' ')
-                # cleaned_text = extracted_text.replace('<span class="wrap"> </span>', ' ')
-                # cleaned_text = extracted_text.replace('<span class="wrap"> </span>', ' ')
-                # cleaned_text = extracted_text.replace(' ', ' ')
-                # cleaned_text = extracted_text.replace('&#160;', ' ')
+
                 ipa_string = cleaned_text
             else:
                 pattern_span = re.compile(r'<span[^>]*>(.*?)</span>')
@@ -153,6 +150,9 @@ class IPAScraper:
                     ipa_string = span_text
                 else:
                     print("No nested ipa_string found with the present regular expression rules.")
+
+            # Replace nbsp when it appears, since it hinders word separation.
+            ipa_string = ipa_string.replace("\u00A0", "\u0020")
             return ipa_string
 
         if language == "English":
@@ -165,8 +165,13 @@ class IPAScraper:
                 extracted_text += clean_match
 
             ipa_string = extracted_text.strip()
+            # Replace nbsp when it appears, since it hinders word separation.
+            ipa_string = ipa_string.replace("\u00A0", "\u0020")
             return ipa_string
 
+        
+        # Replace nbsp when it appears, since it hinders word separation.
+        ipa_string = ipa_string.replace("\u00A0", "\u0020")
         return ipa_string
     
     

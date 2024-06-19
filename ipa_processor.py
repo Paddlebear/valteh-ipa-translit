@@ -3,6 +3,7 @@ from data_handler import DataHandler
 from notifications import Notifications
 from user_input import UserInput
 
+import json
 import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), 'ipapy-0.0.9')))
@@ -46,9 +47,9 @@ class IPAProcessor:
         is_added = False
         processed_chars = []
         
-        print(language_ipa_arr)
+        # print(language_ipa_arr)
         for c in ipa_chars:
-            print(c, c.name)
+            # print(c, c.name)
             is_added = False
             for item in language_ipa_arr:
                 for key, value in item.items():
@@ -70,79 +71,36 @@ class IPAProcessor:
                     break
                         
         processed_chars.append(" ")
-        print(processed_chars)
-        print(ipa_chars, type(ipa_chars))
-        
+        # print(processed_chars)
+        # temp = processed_chars
+        # print(processed_chars)
         ipa_obj["raw_ipa_to_lv"] = processed_chars
         
         if language == scraper.ACCEPTED_LANGUAGES[0]:
-            self.post_ch_to_lv(ipa_obj)
+            result_ipa_obj = self.post_ch_to_lv(ipa_obj)
             
         elif language == scraper.ACCEPTED_LANGUAGES[1]:
-            self.post_fr_to_lv(ipa_obj)
+            result_ipa_obj = self.post_fr_to_lv(ipa_obj)
         
         elif language == scraper.ACCEPTED_LANGUAGES[2]:
-            self.post_ua_to_lv(ipa_obj)
+            result_ipa_obj = self.post_ua_to_lv(ipa_obj)
             
         elif language == scraper.ACCEPTED_LANGUAGES[3]:
-            self.post_jp_to_lv(ipa_obj)
+            result_ipa_obj = self.post_jp_to_lv(ipa_obj)
         
         elif language == scraper.ACCEPTED_LANGUAGES[4]:
-            self.post_de_to_lv(ipa_obj)
+            result_ipa_obj = self.post_de_to_lv(ipa_obj)
 
         elif language == scraper.ACCEPTED_LANGUAGES[5]:
-            self.post_eng_to_lv(ipa_obj)
+            result_ipa_obj = self.post_eng_to_lv(ipa_obj)
         
         else: print("unknown error, contact developers")
         
-        return ipa_obj
-        
-        
-    def _process_ipa_string_chars(self, language, noun_class, gender, ipa_chars):
-        """_summary_
-
-        Args:
-            language (_type_): _description_
-            noun_class (_type_): _description_
-            gender (_type_): _description_
-            ipa_chars (_type_): _description_
-        """ 
-        
-        
-               
-        print()
-        
-    def _post_process_ipa_to_lv(self, language, noun_class, gender, ipa_chars):
-        """_summary_
-
-        Args:
-            language (_type_): _description_
-            noun_class (_type_): _description_
-            gender (_type_): _description_
-            ipa_chars (_type_): _description_
-        """        
-        print()
-    
-    def _convert_ipa_str_to_array(self, initial_ipa_string):
-        """
-        Converts ipa string into an appropriate
-        array of appropriate ipa characters.
-
-        Args:
-            initial_ipa_string (str): the initial ipa string that was
-                                    identified from the user inputted 
-                                    proper noun.
-        Returns:
-            str: _description_
-        """        
-        
-        chars = IPAString(unicode_string="")
-        ipa_string = IPAString(unicode_string=initial_ipa_string, ignore=True)
-        for c in ipa_string:
-            chars.append(c)
-            
-        # TODO does this actually turn into an array, @paddlebear? 
-        return chars
+        # ipa_obj["raw_ipa_to_lv"] = processed_chars
+        # print(temp)
+        # print(json.dumps(ipa_obj, indent=4))
+        return result_ipa_obj
+        # return ipa_obj
         
     def _get_language_ipa_arr(self, language):
         """
@@ -165,65 +123,43 @@ class IPAProcessor:
         # https://www.freecodecamp.org/news/python-switch-statement-switch-case-example/
         
         if language == scraper.ACCEPTED_LANGUAGES[0]:
-            print(data_handler.IPA_FILE_KEYS[0])
+            # print(data_handler.IPA_FILE_KEYS[0])
             ipa_transliteration_arr = data_handler.get_ipa_json_file(data_handler.IPA_FILE_KEYS[0])
             
         elif language == scraper.ACCEPTED_LANGUAGES[1]:
-            print(data_handler.IPA_FILE_KEYS[1])
+            # print(data_handler.IPA_FILE_KEYS[1])
             ipa_transliteration_arr = data_handler.get_ipa_json_file(data_handler.IPA_FILE_KEYS[1])
         
         elif language == scraper.ACCEPTED_LANGUAGES[2]:
-            print(data_handler.IPA_FILE_KEYS[2])
+            # print(data_handler.IPA_FILE_KEYS[2])
             ipa_transliteration_arr = data_handler.get_ipa_json_file(data_handler.IPA_FILE_KEYS[2])
             
         elif language == scraper.ACCEPTED_LANGUAGES[3]:
-            print(data_handler.IPA_FILE_KEYS[3])
+            # print(data_handler.IPA_FILE_KEYS[3])
             ipa_transliteration_arr = data_handler.get_ipa_json_file(data_handler.IPA_FILE_KEYS[3])
         
         elif language == scraper.ACCEPTED_LANGUAGES[4]:
-            print(data_handler.IPA_FILE_KEYS[4])
+            # print(data_handler.IPA_FILE_KEYS[4])
             ipa_transliteration_arr = data_handler.get_ipa_json_file(data_handler.IPA_FILE_KEYS[4])
 
         elif language == scraper.ACCEPTED_LANGUAGES[5]:
-            print(data_handler.IPA_FILE_KEYS[5])
+            # print(data_handler.IPA_FILE_KEYS[5])
             ipa_transliteration_arr = data_handler.get_ipa_json_file(data_handler.IPA_FILE_KEYS[5])
         
         if len(ipa_transliteration_arr) == 0:
             return None
 
-        return ipa_transliteration_arr
-       
-    
-    def ipa_to_array(self, ipa_obj):
-        nounclass = ipa_obj["noun_class"]
-        noungender = ipa_obj["gender"]
-        nounlang = ipa_obj["language"]
-        initstring = ipa_obj["ipa_string"]
-        
-        chars = IPAString(unicode_string="")
-        ipastring = IPAString(unicode_string=initstring, ignore=True)
-        for c in ipastring:
-            chars.append(c)
-            
-        # print(nounclass)
-        # print(noungender)
-        # print(nounlang)
-        # print(chars)
-        # for c in chars:
-        #     print(c)
-            
-        return chars
-    
+        return ipa_transliteration_arr 
     
     def post_ch_to_lv(self, ipa_obj):
         array = ipa_obj["raw_ipa_to_lv"]
         gender = ipa_obj["gender"]
         noun_class = ipa_obj["noun_class"]
-        print("testing")
-        print(array)
+        # print("testing")
+        # print(array)
         i = 0
         while i < len(array): ## STRING CLEANUP ACCORDING TO RULES
-            print(array[i])
+            # print(array[i])
             if array[i] == "^":
                 if array[i-1] == "dz":
                     array[i-1] = "c"
@@ -250,7 +186,7 @@ class IPAProcessor:
         
         i = 0
         while i < len(array): ## NAME ENDINGS
-            print(array[i])
+            # print(array[i])
             if array[i] == ".":
                 del array[i]
                 i = i-1
@@ -273,22 +209,22 @@ class IPAProcessor:
                     
             i = i+1
             
-        ipa_obj["processed_ipa_to_lv"] = array
+        ipa_obj["processed_ipa_to_lv"] = "".join(array)
+        return ipa_obj
         
-    
     def post_de_to_lv(self, ipa_obj):
         array = ipa_obj["raw_ipa_to_lv"]
         gender = ipa_obj["gender"]
         noun_class = ipa_obj["noun_class"]
-        print("testing")
-        print(array)
+        # print("testing")
+        # print(array)
         ## STRING CLEANUP ACCORDING TO RULES
         i = 0
         while i < len(array):
             if array[i] == "dž" and array[i+1] == " ":
                 array[i] = "č"
             if array[i] == "j":
-                print("this is before j:", array[i-1], array[i])
+                # print("this is before j:", array[i-1], array[i])
                 if i != 0 and array[i-1] == "n":
                     if array[i+1] == "i" or array[i+1] == "a" or array[i+1] == "o" or array[i+1] == "u" or array[i+1] == "e" or array[i+1] == "j" or array[i+1] == " ":
                         array[i-1] = "ņ"
@@ -360,8 +296,8 @@ class IPAProcessor:
                     if(gender == UserInput.MALE):
                         array[i-1] = "s"
                     elif (gender == UserInput.FEMALE): 
-                        print("i-1:", array[i-1])
-                        print("to delete", array[i-2])
+                        # print("i-1:", array[i-1])
+                        # print("to delete", array[i-2])
                         array[i-1] = "a"
                         del array[i-2]
                         # i = i-1
@@ -391,25 +327,26 @@ class IPAProcessor:
             if i != 0 and array[i] == "e" and array[i-1] =="a":
                     array[i] = "i"                
             i = i+1
-        ipa_obj["processed_ipa_to_lv"] = array
+        ipa_obj["processed_ipa_to_lv"] = "".join(array)
+        return ipa_obj
         
     def post_eng_to_lv(self, ipa_obj):
         array = ipa_obj["raw_ipa_to_lv"]
         gender = ipa_obj["gender"]
         noun_class = ipa_obj["noun_class"]
-        print("testing")
-        print(array)
+        # print("testing")
+        # print(array)
         ## STRING CLEANUP ACCORDING TO RULES
         i = 0
         while i < len(array):
-            print(array[i])
+            # print(array[i])
             if array[0] == "o" and array[1] == "u":
                 del array[1]
                 i = i-1
             if array[i] == "dž" and array[i+1] == " ":
                 array[i] = "č"
             if array[i] == "j":
-                print("this is before j:", array[i-1], array[i])
+                # print("this is before j:", array[i-1], array[i])
                 if i != 0 and array[i-1] == "n":
                     if array[i+1] == "i" or array[i+1] == "a" or array[i+1] == "o" or array[i+1] == "u" or array[i+1] == "e" or array[i+1] == "j" or array[i+1] == " ":
                         array[i-1] = "ņ"
@@ -452,7 +389,7 @@ class IPAProcessor:
                 del array[i]
             i = i+1
             
-        print("ok")
+        # print("ok")
         ## NAME ENDINGS
         
         i = 0
@@ -467,8 +404,8 @@ class IPAProcessor:
                     if(gender == UserInput.MALE):
                         array[i-1] = "s"
                     elif (gender == UserInput.FEMALE): 
-                        print("i-1:", array[i-1])
-                        print("to delete", array[i-2])
+                        # print("i-1:", array[i-1])
+                        # print("to delete", array[i-2])
                         array[i-1] = "a"
                         del array[i-2]
                         # i = i-1
@@ -506,19 +443,20 @@ class IPAProcessor:
             if i != 0 and array[i] == "e" and array[i-1] =="a":
                     array[i] = "i"                
             i = i+1
-        ipa_obj["processed_ipa_to_lv"] = array
+        ipa_obj["processed_ipa_to_lv"] = "".join(array)
+        return ipa_obj
         
     def post_fr_to_lv(self, ipa_obj):
         array = ipa_obj["raw_ipa_to_lv"]
         gender = ipa_obj["gender"]
         noun_class = ipa_obj["noun_class"]
-        print("testing")
-        print(array)
+        # print("testing")
+        # print(array)
         ## STRING CLEANUP ACCORDING TO RULES
         i = 0
         while i < len(array):
             if array[i] == "j":
-                print("this is before j:", array[i-1], array[i])
+                # print("this is before j:", array[i-1], array[i])
                 if i != 0 and array[i-1] == "n":
                     if array[i+1] == "i" or array[i+1] == "a" or array[i+1] == "o" or array[i+1] == "u" or array[i+1] == "e" or array[i+1] == "j" or array[i+1] == " ":
                         array[i] = "i"
@@ -601,17 +539,18 @@ class IPAProcessor:
                         else: array.insert(i,"a")
                         i = i+1              
             i = i+1
-        ipa_obj["processed_ipa_to_lv"] = array
+        ipa_obj["processed_ipa_to_lv"] = "".join(array)
+        return ipa_obj
         
     def post_jp_to_lv(self, ipa_obj):
         array = ipa_obj["raw_ipa_to_lv"]
         gender = ipa_obj["gender"]
         noun_class = ipa_obj["noun_class"]
-        print("testing")
-        print(array)
+        # print("testing")
+        # print(array)
         i = 0
         while i < len(array): ## STRING CLEANUP ACCORDING TO RULES
-            print(array[i])
+            # print(array[i])
             if array[i] == "j":
                 if array[i-1] == "l" or array[i-1] == "n" or array[i-1] == "cj" or array[i-1] == "dzj":
                     if array[i-1] == "l":
@@ -632,7 +571,7 @@ class IPAProcessor:
         
         i = 0
         while i < len(array): ## NAME ENDINGS
-            print(array[i])
+            # print(array[i])
             if array[i] == ".":
                 del array[i]
                 i = i-1
@@ -647,21 +586,22 @@ class IPAProcessor:
                     
             i = i+1
             
-        ipa_obj["processed_ipa_to_lv"] = array
+        ipa_obj["processed_ipa_to_lv"] = "".join(array)
+        return ipa_obj
         
     def post_ua_to_lv(self, ipa_obj):
         array = ipa_obj["raw_ipa_to_lv"]
         gender = ipa_obj["gender"]
         noun_class = ipa_obj["noun_class"]
-        print("testing")
-        print(array)
+        # print("testing")
+        # print(array)
         ## STRING CLEANUP ACCORDING TO RULES
         i = 0
         while i < len(array):
             if array[i] == "dž" and array[i+1] == " ":
                 array[i] = "č"
             if array[i] == "j":
-                print("this is before j:", array[i-1], array[i])
+                # print("this is before j:", array[i-1], array[i])
                 if i != 0 and array[i-1] == "n":
                     if array[i+1] == "i" or array[i+1] == "a" or array[i+1] == "o" or array[i+1] == "u" or array[i+1] == "e" or array[i+1] == "j" or array[i+1] == " ":
                         array[i-1] = "ņ"
@@ -694,8 +634,8 @@ class IPAProcessor:
                     if(gender == UserInput.MALE):
                         array[i-1] = "s"
                     elif (gender == UserInput.FEMALE): 
-                        print("i-1:", array[i-1])
-                        print("to delete", array[i-2])
+                        # print("i-1:", array[i-1])
+                        # print("to delete", array[i-2])
                         array[i-1] = "a"
                         del array[i-2]
                         # i = i-1
@@ -710,4 +650,5 @@ class IPAProcessor:
                             array.insert(i,"a")
                             i = i+1              
             i = i+1
-        ipa_obj["processed_ipa_to_lv"] = array
+        ipa_obj["processed_ipa_to_lv"] = "".join(array)
+        return ipa_obj

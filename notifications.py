@@ -27,11 +27,12 @@ class Notifications:
     
         print("""
  IPA-TRANSLIT ļauj pārveidot ievadītu īpašvārdu angļu valodā uz tā izcelsmes valodas
- IPA simboliem, kuri pēc tam tiek atveidoti latviešu valodā, sekojot latviešu valodas likumam un autoru personīgai interpretācijai. 
+ IPA simboliem, kuri pēc tam tiek atveidoti latviešu valodā, sekojot latviešu valodas 
+ likumam un autoru personīgai interpretācijai. 
  
- Prorgramma ir atkarīga no tā, vai eksistē Wikipedia šķirklis dotajam īpašvārdam. Ja tas tiek ievadīts 
- nepareizi vai dotajā šķirklī neeksistē IPA simboli, tad programma nebūs spējīga parādīt nepieciešamo
- transliterāciju.    
+ Prorgramma ir atkarīga no tā, vai eksistē Wikipedia šķirklis dotajam īpašvārdam. Ja 
+ tas tiek ievadīts nepareizi vai dotajā šķirklī neeksistē IPA simboli, tad programma 
+ nebūs spējīga parādīt nepieciešamo transliterāciju.    
  
  Atbalstītās valodas:
  - "Mandarin",

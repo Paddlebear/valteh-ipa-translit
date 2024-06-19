@@ -53,7 +53,6 @@ def main():
                 notifications.output_delimiter()
                 notifications.output_transforming_ipa_to_lv()
                 ipa_obj = processor.transform_ipa_to_lv(ipa_obj)
-                notifications.output_delimiter()
                 notifications.print_ipa_obj(ipa_obj)
                 
             exit_condition = user_input.get_exit_condition()

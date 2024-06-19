@@ -43,7 +43,7 @@ Alternatively you can run a DEMO for the currently supported languages using the
 
 ## How does it work?
 
-The program takes in the user inputted `proper noun`, `noun_class` and `gender`, and from that 
+The program takes in the user inputted `proper noun`, `noun_class` and `gender`. 
 
 The input should be in English, for example:
 - timothee chalamet,

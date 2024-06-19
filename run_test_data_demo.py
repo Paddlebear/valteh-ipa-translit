@@ -26,7 +26,9 @@ def main():
                 if isinstance(sub_value, list):
                     print()
                     for item in sub_value:
+                        raw_ipa_string_result = None
                         ipa_string_result = None
+                        
 
                         ipa_obj = ipa_scraper.get_ipa_object(item, json_data[key]["noun_class"], json_data[key]["gender"])
                         # If no IPA string was found.
@@ -34,9 +36,14 @@ def main():
                             ipa_obj = ipa_processor.transform_ipa_to_lv(ipa_obj)
                                     
                         ipa_string_result = ipa_obj["processed_ipa_to_lv"]
-                        # ipa_string_result = ipa_obj["raw_ipa_to_lv"]
                         
-                        print(f"{item} -> {ipa_string_result} : {ipa_obj["language"]}")
+                        if ipa_obj["raw_ipa_to_lv"] != None:
+                            if len(ipa_obj["raw_ipa_to_lv"]) > 0: 
+                                raw_ipa_string_result = "".join(ipa_obj["raw_ipa_to_lv"])
+                        # -> {raw_ipa_string_result}
+                        print(f"{item} -> {ipa_obj["ipa_str"]}  -> {ipa_string_result} : {ipa_obj["language"]}")
+                        
+                              
                     print("\n")
                 else:
                     print(f"{sub_key}: {sub_value}")
