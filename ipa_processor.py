@@ -608,7 +608,50 @@ class IPAProcessor:
         ipa_obj["processed_ipa_to_lv"] = array
         
     def post_jp_to_lv(self, ipa_obj):
-        print("hello world")
+        array = ipa_obj["raw_ipa_to_lv"]
+        gender = ipa_obj["gender"]
+        noun_class = ipa_obj["noun_class"]
+        print("testing")
+        print(array)
+        i = 0
+        while i < len(array): ## STRING CLEANUP ACCORDING TO RULES
+            print(array[i])
+            if array[i] == "j":
+                if array[i-1] == "l" or array[i-1] == "n" or array[i-1] == "cj" or array[i-1] == "dzj":
+                    if array[i-1] == "l":
+                        array[i-1] = "ļ"
+                    if array[i-1] == "n":
+                        array[i-1] = "ņ"
+                    del array[i]
+                    i = i-1
+            if array[i] == "i":
+                if i-1 >= 0:
+                    if array[i-1] == "hi" or array[i-1] == "i":
+                        del array[i]
+                        i = i-1
+            if array[i] == ":":
+                del array[i]
+                i = i-1
+            i = i+1
+        
+        i = 0
+        while i < len(array): ## NAME ENDINGS
+            print(array[i])
+            if array[i] == ".":
+                del array[i]
+                i = i-1
+            if array[i] == " ":
+                if array[i-1] != "a" and array[i-1] != "e" and array[i-1] != "i" and array[i-1] != "o" and array[i-1] != "u":
+                    if gender == UserInput.MALE:
+                        array.insert(i, "s")
+                        i = i+1
+                    else:
+                        array.insert(i, "a")
+                        i = i+1
+                    
+            i = i+1
+            
+        ipa_obj["processed_ipa_to_lv"] = array
         
     def post_ua_to_lv(self, ipa_obj):
         array = ipa_obj["raw_ipa_to_lv"]

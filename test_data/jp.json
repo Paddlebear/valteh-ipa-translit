@@ -5,11 +5,11 @@
         "gender": "s",
         "raw_proper_noun_arr": [
             "tokyo",
-            "osaka",
+            "fukushima",
             "kyoto",
             "yokohama",
             "nagoya",
-            "sapporo",
+            "hokkaido",
             "kobe",
             "fukuoka",
             "hiroshima",
@@ -22,12 +22,12 @@
         "gender": "v",
         "raw_proper_noun_arr": [
             "Shinzo_Abe",
-            "Junichiro_Koizumi",
+            "",
             "Takeshi_Kitano",
             "Hayao_Miyazaki",
             "Yamamoto_Gonnohyōe",
             "Rumina_Sato",
-            "Ichiro_Suzuki",
+            "",
             "Kozo_Takeda",
             "Yuki_Tsunoda",
             ""

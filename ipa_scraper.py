@@ -138,7 +138,10 @@ class IPAScraper:
             if match:
                 extracted_text = match.group(1)
                 cleaned_text = extracted_text.replace('<span class="wrap"> </span>', ' ')
+                cleaned_text = extracted_text.replace('<span class="wrap"> </span>', ' ')
+                cleaned_text = extracted_text.replace('<span class="wrap"> </span>', ' ')
                 cleaned_text = extracted_text.replace(' ', ' ')
+                cleaned_text = extracted_text.replace('&#160;', ' ')
                 ipa_string = cleaned_text
             else:
                 pattern_span = re.compile(r'<span[^>]*>(.*?)</span>')
