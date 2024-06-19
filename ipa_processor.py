@@ -32,13 +32,9 @@ class IPAProcessor:
         Returns:
             JSON: the ipa_obj with modified fields.
         """        
-        notifications = Notifications()
         user_input = UserInput()
         scraper = IPAScraper()
         
-        # print(user_input.PI)
-        
-        notifications.output_transforming_ipa_to_lv()
         
         language = ipa_obj["language"]
         

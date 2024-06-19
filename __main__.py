@@ -51,6 +51,7 @@ def main():
             # If an IPA string was found in the wiki article.
             else:
                 notifications.output_delimiter()
+                notifications.output_transforming_ipa_to_lv()
                 ipa_obj = processor.transform_ipa_to_lv(ipa_obj)
                 notifications.output_delimiter()
                 notifications.print_ipa_obj(ipa_obj)
